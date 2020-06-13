@@ -1,0 +1,12 @@
+1. Does your program run the same way each time? Why?
+
+No it doesn't because the threads may get scheduled to run in a different order each time this program gets run. Generally it seems
+that lower numbered threads go first, while higher numbered threads go later. This might be due to the for loop where these threads
+are getting created as they are created from lowest to highest in number. But there are times when a more random order of threads appears.
+
+2. Give your last customer thread the highest priority. Does this ensure that this customer is always given first priority? Why or why not?
+
+The last customer is not always given first priority even if it has the highest thread priority. This might be because that since it is the last thread,
+by the time it gets created and ready to run, there would already be a lot of threads running. These running threads would probably have acquired a bunch
+of semaphore locks that the highest priority thread would need in order to run. Hence, the highest priority thread may be allowed to run more often on the
+CPU, but it can do nothing but wait until those semaphores it needs get released for it to use to finally proceed.

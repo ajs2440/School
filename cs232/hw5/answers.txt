@@ -1,0 +1,34 @@
+1. Where is the PCB class defined?
+    The PCB class is defined in calos.py after the CalOS class is defined.
+
+2. What information does a PCB object contain?
+    The PCB initializes the name, pid, and registers when a new PCB is made. 
+    
+    It holds information related to its corresponding process' "state" (NEW, READY, RUNNING, WAITING, or DONE)
+    and it also holds a "quantum" variable which determines how long this process runs before being interrupted.
+
+3. When is a PCB created? Which line in which file creates a PCB?
+    A PCB is created in main.py in the _load_program() function. So once a program is loaded into memory from a tape,
+    a PCB is created for that corresponding program and added to the ready queue.
+    
+    In main.py, line 176 names a "pcb" and sets it to None, and then line 179 initializes this "pcb" to a new PCB object
+    with the given procname.
+
+4. What process states have been defined?
+    NEW, READY, RUNNING, WAITING, or DONE are all the states defined in the PCB class.
+
+5. Regarding the variable current_proc: Where has it been defined and what is its significance?
+    current_proc is defined in calos.py in the CalOS class at line 7. 
+    current_proc refers to the PCB of the current executing process so as to use it later on to do context switching
+    between processes in the ready queue.
+
+6. In the TimerController class, what does code that reads
+ 	with self._mutex:
+ 	    code here... 		
+   do?
+    The mutex protects the setting or getting of countdown's value so that it can't be set concurrently by different
+    parts of the code.
+
+7. In the TimerController class, explain what the code does when the countdown goes to 0 (i.e., the time expires).
+    When the timer reaches 0, it generates an interrupt to the CPU and doesn't allow for more interrupts to be generated
+    until the previous one has been handled and then the interrupt is reset.

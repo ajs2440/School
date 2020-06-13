@@ -1,0 +1,9 @@
+1. 1024 words (can't give in bytes because the "number of bits/bytes in a word is not defined")
+2. There are 3 registers: reg0, reg1, reg2 and a program counter register (pc).
+3. JLZ takes a register argument and a destination argument. It jumps to the destination (changes pc to <dst>) if the register is less than 0.
+4. The CPU checks for interrupts in its run_program() function after the second self debug check which prints the CPU state, and also after the current instruction is parsed.
+5. S takes in two parameters, start and end, and it displays the memory for that range from start to end.
+6. ! toggles debugging on or off, debugging is off at startup.
+7. Yes (with #) and yes.
+8. mov can write values in <src> to <dst> which essentially writes bytes into memory.
+9. Yes, both fib.asm and mult.asm are assumed to be loaded at location 100 and 20 respectively.

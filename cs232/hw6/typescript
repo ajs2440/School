@@ -1,0 +1,285 @@
+Script started on 2020-04-11 22:12:37-0400
+]0;ajs244@gold17: ~/Desktop/cs232/hw6[01;32majs244@gold17[00m:[01;34m~/Desktop/cs232/hw6[00m$ gcc busybakeshop.c -o busybakeshop -lpthread
+]0;ajs244@gold17: ~/Desktop/cs232/hw6[01;32majs244@gold17[00m:[01;34m~/Desktop/cs232/hw6[00m$ ./busybakeshop
+
+------ Welcome! My Busy Bakeshop is just starting up! ------
+
+Baking loaf 1...
+Loaf 1 is available for sale!
+
+Customer 2 is waiting outside the store
+Customer 2 entered the store
+Customer 2 gets a loaf of bread
+Customer 2 has paid for the loaf of bread
+Customer 5 is waiting outside the store
+Customer 5 entered the store
+Customer 4 is waiting outside the store
+Customer 4 entered the store
+Customer 7 is waiting outside the store
+Customer 7 entered the store
+Customer 6 is waiting outside the store
+Customer 8 is waiting outside the store
+Customer 8 entered the store
+Customer 10 is waiting outside the store
+Customer 3 is waiting outside the store
+Customer 9 is waiting outside the store
+Customer 1 is waiting outside the store
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 2...
+Loaf 2 is available for sale!
+
+Customer 2 has received the receipt for their loaf of bread
+---------------Customer 2 has left the store---------------
+
+Customer 5 gets a loaf of bread
+Customer 5 has paid for the loaf of bread
+Customer 6 entered the store
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 3...
+Loaf 3 is available for sale!
+
+Customer 5 has received the receipt for their loaf of bread
+---------------Customer 5 has left the store---------------
+
+Customer 3 entered the store
+Customer 3 gets a loaf of bread
+Customer 3 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 4...
+Loaf 4 is available for sale!
+
+Customer 3 has received the receipt for their loaf of bread
+---------------Customer 3 has left the store---------------
+
+Customer 9 entered the store
+Customer 9 gets a loaf of bread
+Customer 9 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 5...
+Loaf 5 is available for sale!
+
+Customer 9 has received the receipt for their loaf of bread
+---------------Customer 9 has left the store---------------
+
+Customer 8 gets a loaf of bread
+Customer 8 has paid for the loaf of bread
+Customer 10 entered the store
+
+Baker has printed and handed the receipt to the customer at the register
+
+Customer 8 has received the receipt for their loaf of bread
+---------------Customer 8 has left the store---------------
+
+Baking loaf 6...
+Loaf 6 is available for sale!
+
+Customer 1 entered the store
+Customer 1 gets a loaf of bread
+Customer 1 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Customer 1 has received the receipt for their loaf of bread
+---------------Customer 1 has left the store---------------
+
+Baking loaf 7...
+Loaf 7 is available for sale!
+
+Customer 4 gets a loaf of bread
+Customer 4 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 8...
+Loaf 8 is available for sale!
+
+Customer 4 has received the receipt for their loaf of bread
+---------------Customer 4 has left the store---------------
+
+Customer 7 gets a loaf of bread
+Customer 7 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 9...
+Loaf 9 is available for sale!
+
+Customer 7 has received the receipt for their loaf of bread
+---------------Customer 7 has left the store---------------
+
+Customer 10 gets a loaf of bread
+Customer 10 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 10...
+Loaf 10 is available for sale!
+
+Customer 10 has received the receipt for their loaf of bread
+---------------Customer 10 has left the store---------------
+
+Customer 6 gets a loaf of bread
+Customer 6 has paid for the loaf of bread
+
+-----------10 loaves baked, all baking is done!------------
+
+
+Baker has printed and handed the receipt to the customer at the register
+
+
+---All loaves have been paid for, customers may be waiting for receipt---
+
+Customer 6 has received the receipt for their loaf of bread
+---------------Customer 6 has left the store---------------
+
+]0;ajs244@gold17: ~/Desktop/cs232/hw6[01;32majs244@gold17[00m:[01;34m~/Desktop/cs232/hw6[00m$ ./busybakeshop
+
+------ Welcome! My Busy Bakeshop is just starting up! ------
+
+Baking loaf 1...
+Loaf 1 is available for sale!
+
+Customer 4 is waiting outside the store
+Customer 4 entered the store
+Customer 4 gets a loaf of bread
+Customer 4 has paid for the loaf of bread
+Customer 5 is waiting outside the store
+Customer 5 entered the store
+Customer 3 is waiting outside the store
+Customer 9 is waiting outside the store
+Customer 9 entered the store
+Customer 3 entered the store
+Customer 7 is waiting outside the store
+Customer 7 entered the store
+Customer 8 is waiting outside the store
+Customer 10 is waiting outside the store
+Customer 6 is waiting outside the store
+Customer 1 is waiting outside the store
+Customer 2 is waiting outside the store
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 2...
+Loaf 2 is available for sale!
+
+Customer 4 has received the receipt for their loaf of bread
+---------------Customer 4 has left the store---------------
+
+Customer 5 gets a loaf of bread
+Customer 5 has paid for the loaf of bread
+Customer 8 entered the store
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 3...
+Loaf 3 is available for sale!
+
+Customer 9 gets a loaf of bread
+Customer 5 has received the receipt for their loaf of bread
+---------------Customer 5 has left the store---------------
+
+Customer 10 entered the store
+Customer 9 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 4...
+Loaf 4 is available for sale!
+
+Customer 9 has received the receipt for their loaf of bread
+Customer 3 gets a loaf of bread
+Customer 3 has paid for the loaf of bread
+---------------Customer 9 has left the store---------------
+
+Customer 6 entered the store
+
+Baker has printed and handed the receipt to the customer at the register
+
+Customer 3 has received the receipt for their loaf of bread
+---------------Customer 3 has left the store---------------
+
+Customer 1 entered the store
+Baking loaf 5...
+Loaf 5 is available for sale!
+
+Customer 7 gets a loaf of bread
+Customer 7 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Customer 7 has received the receipt for their loaf of bread
+---------------Customer 7 has left the store---------------
+
+Customer 2 entered the store
+Baking loaf 6...
+Loaf 6 is available for sale!
+
+Customer 8 gets a loaf of bread
+Customer 8 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 7...
+Loaf 7 is available for sale!
+
+Customer 8 has received the receipt for their loaf of bread
+---------------Customer 8 has left the store---------------
+
+Customer 10 gets a loaf of bread
+Customer 10 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 8...
+Loaf 8 is available for sale!
+
+Customer 10 has received the receipt for their loaf of bread
+---------------Customer 10 has left the store---------------
+
+Customer 6 gets a loaf of bread
+Customer 6 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 9...
+Loaf 9 is available for sale!
+
+Customer 1 gets a loaf of bread
+Customer 6 has received the receipt for their loaf of bread
+---------------Customer 6 has left the store---------------
+
+Customer 1 has paid for the loaf of bread
+
+Baker has printed and handed the receipt to the customer at the register
+
+Baking loaf 10...
+Loaf 10 is available for sale!
+
+Customer 2 gets a loaf of bread
+Customer 1 has received the receipt for their loaf of bread
+---------------Customer 1 has left the store---------------
+
+Customer 2 has paid for the loaf of bread
+
+-----------10 loaves baked, all baking is done!------------
+
+
+Baker has printed and handed the receipt to the customer at the register
+
+
+---All loaves have been paid for, customers may be waiting for receipt---
+
+Customer 2 has received the receipt for their loaf of bread
+---------------Customer 2 has left the store---------------
+
+]0;ajs244@gold17: ~/Desktop/cs232/hw6[01;32majs244@gold17[00m:[01;34m~/Desktop/cs232/hw6[00m$ exit
+
+Script done on 2020-04-11 22:13:53-0400

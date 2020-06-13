@@ -1,0 +1,77 @@
+Script started on 2020-03-13 19:57:56-0400
+]0;ajs244@gold20: ~/Desktop/cs232/hw4[01;32majs244@gold20[00m:[01;34m~/Desktop/cs232/hw4[00m$ ls
+CommandLine.cpp  JAShell.cpp  main.cpp  Prompt.cpp  [0m[01;31mshell.zip[0m
+CommandLine.h    JAShell.h    Path.cpp  Prompt.h    [01;34mtest[0m
+[01;32mJAShell[0m          [01;32mmain[0m         Path.h    [01;34mshell[0m       typescript
+]0;ajs244@gold20: ~/Desktop/cs232/hw4[01;32majs244@gold20[00m:[01;34m~/Desktop/cs232/hw4[00m$ g++ -o JAShell *.cpp
+]0;ajs244@gold20: ~/Desktop/cs232/hw4[01;32majs244@gold20[00m:[01;34m~/Desktop/cs232/hw4[00m$ ./JAShell
+/home/ajs244/Desktop/cs232/hw4$ ls
+CommandLine.cpp  JAShell.cpp  main.cpp	Prompt.cpp  shell.zip
+CommandLine.h	 JAShell.h    Path.cpp	Prompt.h    test
+JAShell		 main	      Path.h	shell	    typescript
+/home/ajs244/Desktop/cs232/hw4$ ls -l
+total 152
+-rw-rw----  1 ajs244 ajs244  1818 Mar 13 18:28 CommandLine.cpp
+-rw-rw----  1 ajs244 ajs244   766 Mar 13 18:31 CommandLine.h
+-rwxrwx--x  1 ajs244 ajs244 60096 Mar 13 19:58 JAShell
+-rw-rw----  1 ajs244 ajs244  2874 Mar 13 19:43 JAShell.cpp
+-rw-rw----  1 ajs244 ajs244   619 Mar 13 18:28 JAShell.h
+-rwxrwx--x  1 ajs244 ajs244 59816 Mar 13 19:22 main
+-rw-rw----  1 ajs244 ajs244   298 Mar 13 18:29 main.cpp
+-rw-rw----  1 ajs244 ajs244  2230 Mar 13 18:28 Path.cpp
+-rw-rw----  1 ajs244 ajs244   738 Mar 13 18:28 Path.h
+-rw-rw----  1 ajs244 ajs244   528 Mar 13 18:28 Prompt.cpp
+-rw-rw----  1 ajs244 ajs244   544 Mar 13 18:28 Prompt.h
+drwxrwx---+ 3 ajs244 ajs244    15 Mar  7 17:04 shell
+-rw-rw-r--  1 ajs244 ajs244 21259 Mar  7 15:38 shell.zip
+drwxrwx---+ 2 ajs244 ajs244     0 Mar 13 19:25 test
+-rw-rw----  1 ajs244 ajs244     0 Mar 13 19:57 typescript
+/home/ajs244/Desktop/cs232/hw4$ ls -a
+.		 CommandLine.h	JAShell.h  Path.cpp    Prompt.h   test
+..		 JAShell	main	   Path.h      shell	  typescript
+CommandLine.cpp  JAShell.cpp	main.cpp   Prompt.cpp  shell.zip  .vscode
+/home/ajs244/Desktop/cs232/hw4$ cd ..
+/home/ajs244/Desktop/cs232$ pwd
+/home/ajs244/Desktop/cs232
+/home/ajs244/Desktop/cs232$ cd hw4
+/home/ajs244/Desktop/cs232/hw4$ pwd
+/home/ajs244/Desktop/cs232/hw4
+/home/ajs244/Desktop/cs232/hw4$ ps
+  PID TTY          TIME CMD
+27713 pts/5    00:00:00 bash
+27772 pts/5    00:00:00 JAShell
+27797 pts/5    00:00:00 ps
+/home/ajs244/Desktop/cs232/hw4$ ps &
+/home/ajs244/Desktop/cs232/hw4$   PID TTY          TIME CMD
+27713 pts/5    00:00:00 bash
+27772 pts/5    00:00:00 JAShell
+27800 pts/5    00:00:00 ps
+ls
+CommandLine.cpp  JAShell.cpp  main.cpp	Prompt.cpp  shell.zip
+CommandLine.h	 JAShell.h    Path.cpp	Prompt.h    test
+JAShell		 main	      Path.h	shell	    typescript
+/home/ajs244/Desktop/cs232/hw4$ cat main.cpp
+/* The main driver program for JAShell
+ *
+ * Written by:
+ *    Josh Ridder (jmr59)
+ *    Advait Scaria (ajs244)
+ * Date: 3/13/20
+ * 
+ * For CS 232 at Calvin University
+ */
+
+
+#include "JAShell.h"
+
+int main() {
+  JAShell myShell;        // initializes a JAShell object and runs it
+  myShell.run();
+}
+/home/ajs244/Desktop/cs232/hw4$ cd invalid arguments
+cd called with too many arguments, expected 2
+/home/ajs244/Desktop/cs232/hw4$ exit
+so long :(
+]0;ajs244@gold20: ~/Desktop/cs232/hw4[01;32majs244@gold20[00m:[01;34m~/Desktop/cs232/hw4[00m$ exit
+
+Script done on 2020-03-13 19:59:12-0400
