@@ -1,0 +1,11 @@
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\bin\Debug\netcoreapp3.0\Bingo.exe
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\bin\Debug\netcoreapp3.0\Bingo.deps.json
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\bin\Debug\netcoreapp3.0\Bingo.runtimeconfig.json
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\bin\Debug\netcoreapp3.0\Bingo.runtimeconfig.dev.json
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\bin\Debug\netcoreapp3.0\Bingo.dll
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\bin\Debug\netcoreapp3.0\Bingo.pdb
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\obj\Debug\netcoreapp3.0\Bingo.csprojAssemblyReference.cache
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\obj\Debug\netcoreapp3.0\Bingo.AssemblyInfoInputs.cache
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\obj\Debug\netcoreapp3.0\Bingo.AssemblyInfo.cs
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\obj\Debug\netcoreapp3.0\Bingo.dll
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Bingo\Bingo\Bingo\obj\Debug\netcoreapp3.0\Bingo.pdb

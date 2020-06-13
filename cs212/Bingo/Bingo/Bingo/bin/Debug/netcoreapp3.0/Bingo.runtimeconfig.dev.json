@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\advai\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\advai\\.nuget\\packages"
+    ]
+  }
+}
