@@ -1,0 +1,14 @@
+16:56:07 **** Build of configuration Debug for project lab8 ****
+make all 
+Building file: ../ArrayQueue.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"ArrayQueue.d" -MT"ArrayQueue.o" -o "ArrayQueue.o" "../ArrayQueue.cpp"
+../ArrayQueue.cpp:54:12: error: expected unqualified-id before numeric constant
+ ArrayQueue 1 = ArrayQueue 2
+            ^
+make: *** [ArrayQueue.o] Error 1
+subdir.mk:30: recipe for target 'ArrayQueue.o' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+
+16:56:08 Build Failed. 3 errors, 0 warnings. (took 601ms)
+

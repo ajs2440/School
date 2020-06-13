@@ -1,0 +1,20 @@
+22:41:14 **** Auto Build of configuration Debug for project lab01 ****
+make all 
+Building file: ../PlayListTester.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"PlayListTester.d" -MT"PlayListTester.o" -o "PlayListTester.o" "../PlayListTester.cpp"
+Finished building: ../PlayListTester.cpp
+ 
+Building file: ../main.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.o" -o "main.o" "../main.cpp"
+Finished building: ../main.cpp
+ 
+Building target: lab01
+Invoking: GCC C++ Linker
+g++  -o "lab01"  ./PlayList.o ./PlayListTester.o ./Song.o ./SongTester.o ./main.o   
+Finished building target: lab01
+ 
+
+22:41:15 Build Finished (took 841ms)
+

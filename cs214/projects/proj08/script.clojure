@@ -1,0 +1,380 @@
+Script started on Fri 12 Apr 2019 01:07:44 AM EDT
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ cat src/temp_driver.clj
+;; temp_driver.clj tests a Clojure Temperature type,
+;;  stored in temperature.clj (in the src directory).
+;;
+;; Output: the results of testing the Temperature functions.
+;;
+;; Usage: clojure -m temp_driver
+;;
+;; Begun by: Prof. Adams, CS 214 at Calvin College.
+;; Completed by: Advait Scaria
+;; Date: 04/11/2019
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns temp_driver)
+
+;;(load "Name")
+(load-file "src/temperature.clj")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; A simple driver to test Temperature functions. 
+;; Output: the results of testing Temperature functions.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn -main []
+  (let
+    [
+    		baseTemp (readTemp)
+    		limitTemp (readTemp)
+    ]
+    (println "Enter stepValue: ")
+    (let [ stepValue (read) ]
+    		(newline) (println "      Fahrenheit          Celsius         Kelvin") (newline)
+		    (loop [i 0]
+		    		(when (or (lessThan (raise baseTemp i) limitTemp) 
+		    	          (equals (raise baseTemp i) limitTemp))
+		    				(print "     ")
+          (displayTemp (raise (getInF baseTemp) i))
+          (print "     ")
+          (displayTemp (raise (getInC baseTemp) i))
+          (print "     ")
+          (displayTemp (raise (getInK baseTemp) i))
+          (println)   
+		    			 (recur (+ i stepValue))
+		    		);closes when 
+		    ); closes loop
+		  ) 
+  )
+)
+
+
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ cat src/temperature.clj
+;; temperature.clj is a module for the 'Temperature' type-abstraction.
+;;
+;; Begun by: Prof. Adams, for CS 214 at Calvin College.
+;; Completed by: Advait Scaria
+;; Date: 04/11/2019
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require '[clojure.string :as str])
+;; Create a record/struct type named Temperature
+(defrecord Temperature [myDegree myScale])
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; isValid checks if a Temperature object is valid. 
+;; Receive: degree, a float;
+;; 									scale, a character.
+;; Return: true if Temperature type is valid, false otherwise.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn isValid [degree scale]
+		(cond
+				(= \F scale) (if (< degree -459.67) false true)
+				(= \f scale) (if (< degree -459.67) false true)
+				(= \C scale) (if (< degree -273.15) false true)
+				(= \c scale) (if (< degree -273.15) false true)
+				(= \K scale) (if (< degree 0.0) false true)
+				(= \k scale) (if (< degree 0.0) false true)
+				:else true
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; make-Temperature constructs a Temperature object from given 
+;; 																	degree and scale. 
+;; Receive: degree, a float;
+;; 									scale, a character.
+;; Return: the Temperature (degree scale). 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn make-Temperature [degree scale]
+  (if (isValid degree scale) 
+  		(->Temperature degree scale)
+  		(println "Invalid Input")
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getMyDegree extracts the degree of a Temperature object.
+;; Receive: aTemp, a Temperature.
+;; Return: myDegree of aTemp.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getMyDegree [^Temperature aTemp]
+  (:myDegree aTemp)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getMyScale extracts the scale of a Temperature object.
+;; Receive: aTemp, a Temperature.
+;; Return: myScale of aTemp.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getMyScale [^Temperature aTemp]
+  (:myScale aTemp)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getInF gives a Temperature in equivalent degrees F scale
+;; PRE: Temperature object which this message is sent to has
+;; 					been initialized.  
+;; Receive: aTemp, a Temperature.
+;; Return: a Temperature object in degrees F scale.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getInF [^Temperature aTemp]
+  (cond
+				(= \F (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \F)
+				(= \f (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \F)
+				(= \C (getMyScale aTemp)) (make-Temperature (+ (* (/ 9.0 5.0) (getMyDegree aTemp)) 32.0) \F)
+				(= \c (getMyScale aTemp)) (make-Temperature (+ (* (/ 9.0 5.0) (getMyDegree aTemp)) 32.0) \F)
+				(= \K (getMyScale aTemp)) (make-Temperature (+ (* (/ 9.0 5.0) (- (getMyDegree aTemp) 273.15)) 32.0) \F)
+				(= \k (getMyScale aTemp)) (make-Temperature (+ (* (/ 9.0 5.0) (- (getMyDegree aTemp) 273.15)) 32.0) \F)
+				:else false
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getInC gives a Temperature in equivalent degrees C scale
+;; PRE: Temperature object which this message is sent to has
+;; 					been initialized.  
+;; Receive: aTemp, a Temperature.
+;; Return: a Temperature object in degrees C scale.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getInC [^Temperature aTemp]
+  (cond
+				(= \F (getMyScale aTemp)) (make-Temperature (* (/ 5.0 9.0) (- (getMyDegree aTemp) 32.0)) \C)
+				(= \f (getMyScale aTemp)) (make-Temperature (* (/ 5.0 9.0) (- (getMyDegree aTemp) 32.0)) \C)
+				(= \C (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \C)
+				(= \c (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \C)
+				(= \K (getMyScale aTemp)) (make-Temperature (- (getMyDegree aTemp) 273.15) \C)
+				(= \k (getMyScale aTemp)) (make-Temperature (- (getMyDegree aTemp) 273.15) \C)
+				:else false
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getInK gives a Temperature in equivalent degrees K scale
+;; PRE: Temperature object which this message is sent to has
+;; 					been initialized.  
+;; Receive: aTemp, a Temperature.
+;; Return: a Temperature object in degrees K scale.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getInK [^Temperature aTemp]
+  (cond
+				(= \F (getMyScale aTemp)) (make-Temperature (* (/ 5.0 9.0) (+ (getMyDegree aTemp) 459.67)) \K)
+				(= \f (getMyScale aTemp)) (make-Temperature (* (/ 5.0 9.0) (+ (getMyDegree aTemp) 459.67)) \K)
+				(= \C (getMyScale aTemp)) (make-Temperature (+ (getMyDegree aTemp) 273.15) \K)
+				(= \c (getMyScale aTemp)) (make-Temperature (+ (getMyDegree aTemp) 273.15) \K)
+				(= \K (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \K)
+				(= \k (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \K)
+				:else false
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; readTemp reads Temperature object values from input.
+;; Return: an initialized Temperature object based on input.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn readTemp []
+		(println "(Enter the temperature in the format --- degrees, scale): ")
+		(let 
+				[
+				  inputStr (read-line) 
+				  splitStr1 (str/split inputStr #" ")
+				  deg (Float/parseFloat (first splitStr1))
+				  sc (get (second splitStr1) 0)
+				]
+				(if (isValid deg sc) 
+  					(->Temperature deg sc)
+  					(println "Invalid Input")
+ 			)
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; displayTemp outputs Temperature object values.
+;; PRE: Temp has been initialized.
+;; Receive: Temp, a Temperature.
+;; Output: Temp.myDegree & Temp.myScale output to console.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn displayTemp [^Temperature aTemp]
+		(print (format "%.5f"(getMyDegree aTemp)) " " (getMyScale aTemp))
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; raise raises myDegree by degree amount.
+;; PRE: Temp has been initialized, degrees > 0.
+;; Receive: Temp, a Temperature;                            
+;;          degree, a Float
+;; Output: Temperature object with raised myDegree. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn raise [^Temperature aTemp degree]
+		(if (>= degree 0.0) (make-Temperature (+ (getMyDegree aTemp) degree) (getMyScale aTemp))
+						(print "Please enter a degree greater than 0 to raise the temperature by!")
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lower lowers myDegree by degree amount.
+;; PRE: Temp has been initialized, degrees > 0.
+;; Receive: Temp, a Temperature;                            
+;;          degree, a Float
+;; Output: Temperature object with lowered myDegree. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn lower [^Temperature aTemp degree]
+		(if (> degree 0.0) 
+						(if (isValid (- (getMyDegree aTemp) degree) (getMyScale aTemp)) 
+										(make-Temperature (- (getMyDegree aTemp) degree) (getMyScale aTemp))
+										(make-Temperature (getMyDegree aTemp) (getMyScale aTemp))
+						)
+				  (print "Please enter a degree greater than 0 to raise the temperature by!")
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; equals compares the degrees of two Temperature objects.
+;; PRE: both temp1 and temp2 have been initialized.
+;; Receive: temp1, a Temperature;                           
+;;          temp2, a Temperature. 
+;; Return: true if they have equaivalent degrees, false
+;;         otherwise.  
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn equals [^Temperature temp1 ^Temperature temp2]
+		(if (= (getMyDegree (getInF temp1)) (getMyDegree (getInF temp2))) true false) 
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lessThan compares the degrees of two Temperature objects.
+;; PRE: both temp1 and temp2 have been initialized.
+;; Receive: temp1, a Temperature;                           
+;;          temp2, a Temperature. 
+;; Return: true if temp1 is less than temp2, false otherwise. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn lessThan [^Temperature temp1 ^Temperature temp2]
+		(if (< (getMyDegree (getInF temp1)) (getMyDegree (getInF temp2))) true false)
+)
+
+
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ clojure -m temp_driver
+(Enter the temperature in the format --- degrees, scale): 
+0 F
+(Enter the temperature in the format --- degrees, scale): 
+100 C
+Enter stepValue: 
+2.5
+
+      Fahrenheit          Celsius         Kelvin
+
+     0.00000   F     -17.77778   C     255.37222   K
+     2.50000   F     -15.27778   C     257.87222   K
+     5.00000   F     -12.77778   C     260.37222   K
+     7.50000   F     -10.27778   C     262.87222   K
+     10.00000   F     -7.77778   C     265.37222   K
+     12.50000   F     -5.27778   C     267.87222   K
+     15.00000   F     -2.77778   C     270.37222   K
+     17.50000   F     -0.27778   C     272.87222   K
+     20.00000   F     2.22222   C     275.37222   K
+     22.50000   F     4.72222   C     277.87222   K
+     25.00000   F     7.22222   C     280.37222   K
+     27.50000   F     9.72222   C     282.87222   K
+     30.00000   F     12.22222   C     285.37222   K
+     32.50000   F     14.72222   C     287.87222   K
+     35.00000   F     17.22222   C     290.37222   K
+     37.50000   F     19.72222   C     292.87222   K
+     40.00000   F     22.22222   C     295.37222   K
+     42.50000   F     24.72222   C     297.87222   K
+     45.00000   F     27.22222   C     300.37222   K
+     47.50000   F     29.72222   C     302.87222   K
+     50.00000   F     32.22222   C     305.37222   K
+     52.50000   F     34.72222   C     307.87222   K
+     55.00000   F     37.22222   C     310.37222   K
+     57.50000   F     39.72222   C     312.87222   K
+     60.00000   F     42.22222   C     315.37222   K
+     62.50000   F     44.72222   C     317.87222   K
+     65.00000   F     47.22222   C     320.37222   K
+     67.50000   F     49.72222   C     322.87222   K
+     70.00000   F     52.22222   C     325.37222   K
+     72.50000   F     54.72222   C     327.87222   K
+     75.00000   F     57.22222   C     330.37222   K
+     77.50000   F     59.72222   C     332.87222   K
+     80.00000   F     62.22222   C     335.37222   K
+     82.50000   F     64.72222   C     337.87222   K
+     85.00000   F     67.22222   C     340.37222   K
+     87.50000   F     69.72222   C     342.87222   K
+     90.00000   F     72.22222   C     345.37222   K
+     92.50000   F     74.72222   C     347.87222   K
+     95.00000   F     77.22222   C     350.37222   K
+     97.50000   F     79.72222   C     352.87222   K
+     100.00000   F     82.22222   C     355.37222   K
+     102.50000   F     84.72222   C     357.87222   K
+     105.00000   F     87.22222   C     360.37222   K
+     107.50000   F     89.72222   C     362.87222   K
+     110.00000   F     92.22222   C     365.37222   K
+     112.50000   F     94.72222   C     367.87222   K
+     115.00000   F     97.22222   C     370.37222   K
+     117.50000   F     99.72222   C     372.87222   K
+     120.00000   F     102.22222   C     375.37222   K
+     122.50000   F     104.72222   C     377.87222   K
+     125.00000   F     107.22222   C     380.37222   K
+     127.50000   F     109.72222   C     382.87222   K
+     130.00000   F     112.22222   C     385.37222   K
+     132.50000   F     114.72222   C     387.87222   K
+     135.00000   F     117.22222   C     390.37222   K
+     137.50000   F     119.72222   C     392.87222   K
+     140.00000   F     122.22222   C     395.37222   K
+     142.50000   F     124.72222   C     397.87222   K
+     145.00000   F     127.22222   C     400.37222   K
+     147.50000   F     129.72222   C     402.87222   K
+     150.00000   F     132.22222   C     405.37222   K
+     152.50000   F     134.72222   C     407.87222   K
+     155.00000   F     137.22222   C     410.37222   K
+     157.50000   F     139.72222   C     412.87222   K
+     160.00000   F     142.22222   C     415.37222   K
+     162.50000   F     144.72222   C     417.87222   K
+     165.00000   F     147.22222   C     420.37222   K
+     167.50000   F     149.72222   C     422.87222   K
+     170.00000   F     152.22222   C     425.37222   K
+     172.50000   F     154.72222   C     427.87222   K
+     175.00000   F     157.22222   C     430.37222   K
+     177.50000   F     159.72222   C     432.87222   K
+     180.00000   F     162.22222   C     435.37222   K
+     182.50000   F     164.72222   C     437.87222   K
+     185.00000   F     167.22222   C     440.37222   K
+     187.50000   F     169.72222   C     442.87222   K
+     190.00000   F     172.22222   C     445.37222   K
+     192.50000   F     174.72222   C     447.87222   K
+     195.00000   F     177.22222   C     450.37222   K
+     197.50000   F     179.72222   C     452.87222   K
+     200.00000   F     182.22222   C     455.37222   K
+     202.50000   F     184.72222   C     457.87222   K
+     205.00000   F     187.22222   C     460.37222   K
+     207.50000   F     189.72222   C     462.87222   K
+     210.00000   F     192.22222   C     465.37222   K
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ clojure -m temp_driver
+(Enter the temperature in the format --- degrees, scale): 
+0 K
+(Enter the temperature in the format --- degrees, scale): 
+212 F
+Enter stepValue: 
+20.0
+
+      Fahrenheit          Celsius         Kelvin
+
+     -459.67000   F     -273.15000   C     0.00000   K
+     -439.67000   F     -253.15000   C     20.00000   K
+     -419.67000   F     -233.15000   C     40.00000   K
+     -399.67000   F     -213.15000   C     60.00000   K
+     -379.67000   F     -193.15000   C     80.00000   K
+     -359.67000   F     -173.15000   C     100.00000   K
+     -339.67000   F     -153.15000   C     120.00000   K
+     -319.67000   F     -133.15000   C     140.00000   K
+     -299.67000   F     -113.15000   C     160.00000   K
+     -279.67000   F     -93.15000   C     180.00000   K
+     -259.67000   F     -73.15000   C     200.00000   K
+     -239.67000   F     -53.15000   C     220.00000   K
+     -219.67000   F     -33.15000   C     240.00000   K
+     -199.67000   F     -13.15000   C     260.00000   K
+     -179.67000   F     6.85000   C     280.00000   K
+     -159.67000   F     26.85000   C     300.00000   K
+     -139.67000   F     46.85000   C     320.00000   K
+     -119.67000   F     66.85000   C     340.00000   K
+     -99.67000   F     86.85000   C     360.00000   K
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ exit
+
+Script done on Fri 12 Apr 2019 01:08:29 AM EDT

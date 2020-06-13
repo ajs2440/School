@@ -1,0 +1,19 @@
+Script started on Wed 17 Apr 2019 03:07:52 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (defd    triple (fn [x] (* x 3)))
+#'user/triple
+user=> (triple 4)
+12
+user=> (#(* % 3) 4)
+12
+user=> (#(* %1      + (* %1 %1) (* %2 %2)))  3 4)
+25
+user=> (def sum2Squares #(+ (* %1 %1) (* %2 %2)))
+#'user/sum2Squares
+user=> (sumS 2Squares 3 4  )
+25
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:12:54 PM EDT

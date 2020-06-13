@@ -1,0 +1,40 @@
+14:09:18 **** Auto Build of configuration Debug for project lab11 ****
+make all 
+Building file: ../AccountManager.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"AccountManager.d" -MT"AccountManager.o" -o "AccountManager.o" "../AccountManager.cpp"
+Finished building: ../AccountManager.cpp
+ 
+Building file: ../AccountManagerTester.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"AccountManagerTester.d" -MT"AccountManagerTester.o" -o "AccountManagerTester.o" "../AccountManagerTester.cpp"
+Finished building: ../AccountManagerTester.cpp
+ 
+Building file: ../Menu.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Menu.d" -MT"Menu.o" -o "Menu.o" "../Menu.cpp"
+Finished building: ../Menu.cpp
+ 
+Building file: ../MenuTester.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"MenuTester.d" -MT"MenuTester.o" -o "MenuTester.o" "../MenuTester.cpp"
+Finished building: ../MenuTester.cpp
+ 
+Building file: ../manageUserAccounts.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"manageUserAccounts.d" -MT"manageUserAccounts.o" -o "manageUserAccounts.o" "../manageUserAccounts.cpp"
+Finished building: ../manageUserAccounts.cpp
+ 
+Building file: ../tester.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"tester.d" -MT"tester.o" -o "tester.o" "../tester.cpp"
+Finished building: ../tester.cpp
+ 
+Building target: lab11
+Invoking: GCC C++ Linker
+g++  -o "lab11"  ./AccountManager.o ./AccountManagerTester.o ./Menu.o ./MenuTester.o ./manageUserAccounts.o ./tester.o   
+Finished building target: lab11
+ 
+
+14:09:21 Build Finished. 0 errors, 0 warnings. (took 2s.845ms)
+

@@ -1,0 +1,6 @@
+16:36:43 **** Auto Build of configuration Debug for project proj4 ****
+make all 
+make: Nothing to be done for 'all'.
+
+16:36:44 Build Finished. 0 errors, 0 warnings. (took 677ms)
+

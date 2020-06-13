@@ -1,0 +1,163 @@
+/* Application.cpp defines the Application test-methods.
+    * Student Name: Advait Scaria
+    * Date: 09/15/2018
+    * Begun by: Joel Adams, for CS 112 at Calvin College.
+    */
+
+#include "Application.h"
+#include "PlayList.h"
+#include "Song.h"
+#include <iostream>
+#include <ostream>
+#include <fstream>
+#include <cassert>
+#include <string>
+using namespace std;
+
+Application::Application() {
+	// TODO Auto-generated constructor stub
+
+}
+
+void Application::run() {
+	// Declare a new instance of PlayList, pList, which will be the default playlist to be used in this application
+	// Make an int input variable which will be used to determine the input
+	PlayList pList("testSongs.txt");
+	int input;
+
+	// do loop the interface while input is not 0
+	do {
+
+		// Interface dialogue and instructions
+		cout << "\n Welcome to the PlayList Manager! \n"
+				<< " Please enter: \n "
+				<< " 	1 - to search the playlist for songs by a given artist \n"
+				<< " 	2 - to search the playlist for songs from a given year \n"
+				<< " 	3 - to search the playlist for songs with a given phrase in their title \n"
+				<< " 	4 - to add a new song to the playlist \n"
+				<< " 	5 - to remove a song from the playlist \n"
+				<< " 	6 - to save the playlist to the text file \n"
+				<< " 	0 - to quit \n" << " --->\t";
+
+		// Get user input which should be a number from 0 through 6
+		cin >> input;
+		cin.ignore();
+
+		// if input is 1, make a string artist variable, let the user input an artist name,
+		// check pList for songs by that artist and return those song objects
+		if (input == 1) {
+			string artist;
+			cout << "\n Enter the name of an artist: ";
+			getline(cin, artist);  			// this doesn't work, doesn't even give a chance to input a name
+			vector<Song> searchResult = pList.searchByArtist(artist);
+			cout << "\n Songs by " << artist << ": \n\t ";
+			if (searchResult.size() == 0) {
+				cout << "No songs by artist: " << artist << "\n";
+			} else {
+				for (unsigned i = 0; i < searchResult.size(); i++) {
+					cout << searchResult[i].getTitle() << "\n\t "
+							<< searchResult[i].getArtist() << "\n\t "
+							<< searchResult[i].getYear() << "\n\t " << "\n\t ";
+				}
+			}
+		}
+
+		// if input is 2, make an unsigned variable year, let the user input an year,
+		// check pList for songs in that year and return those song objects
+		else if (input == 2) {
+			unsigned year;
+			cout << "\n Enter an year: ";
+			cin >> year;
+			cin.ignore();
+			vector<Song> searchResult = pList.searchByYear(year);
+			cout << "\n Songs in " << year << ": \n\t ";
+			if (searchResult.size() == 0) {
+				cout << "No songs in year: " << year << "\n";
+			} else {
+				for (unsigned i = 0; i < searchResult.size(); i++) {
+					cout << searchResult[i].getTitle() << "\n\t "
+							<< searchResult[i].getArtist() << "\n\t "
+							<< searchResult[i].getYear() << "\n\t " << "\n\t ";
+				}
+			}
+		}
+
+		// if input is 3, make a string variable phrase, let the user input a phrase,
+		// check pList for songs with that phrase and return those song objects
+		else if (input == 3) {
+			string phrase;
+			cout << "\n Enter a song title or phrase: ";
+			getline(cin, phrase);
+			vector<Song> searchResult = pList.searchByTitlePhrase(phrase);
+			cout << "\n Songs with phrase -- " << phrase << ": \n\t ";
+			if (searchResult.size() == 0) {
+				cout << "No songs with title/phrase: " << phrase << "\n";
+			} else {
+				for (unsigned i = 0; i < searchResult.size(); i++) {
+					cout << searchResult[i].getTitle() << "\n\t "
+							<< searchResult[i].getArtist() << "\n\t "
+							<< searchResult[i].getYear() << "\n\t " << "\n\t ";
+				}
+			}
+		}
+
+		// if input is 4, make title, artist, and year variables with appropriate types, get user input on those
+		// 3 variables, make a Song object and pass those 3 inputs as the Song object's parameters, and add that
+		// Song object to the playlist.
+		// Precondition: title and artist inputs must be appropriate word inputs, year input must be appropriate number
+		// 				 input
+		else if (input == 4) {
+			string title;
+			string artist;
+			unsigned year;
+			cout << "\n Enter the song's title: ";
+			getline(cin, title);
+			cout << "\n Enter the song's artist: ";
+			getline(cin, artist);
+			cout << "\n Enter the song's year of release: ";
+			cin >> year;
+			cin.ignore();
+			Song newSong(title, artist, year);
+			pList.addSong(newSong);
+			cout << "\n Your song, " << title << ", " << year << " by "
+					<< artist << " has been added to the playlist! \n";
+		}
+
+		// if input is 5, make title, artist, and year variables with appropriate types, get user input on those
+		// 3 variables, and remove the Song object that matches those 3 attributes. If that same Song object isn't
+		// in the playlist, output to user a message saying so
+		else if (input == 5) {
+			string title;
+			string artist;
+			unsigned year;
+			cout << "\n Enter the title of the song  you want to remove: ";
+			getline(cin, title);
+			cout << "\n Enter the artist of the song you want to remove: ";
+			getline(cin, artist);
+			cout << "\n Enter the year of the song you want to remove: ";
+			cin >> year;
+			cin.ignore();
+			Song aSong(title, artist, year);
+			vector<Song> searchResultTitle = pList.searchByTitlePhrase(title);
+			vector<Song> searchResultArtist = pList.searchByArtist(artist);
+			vector<Song> searchResultYear = pList.searchByYear(year);
+			if (searchResultTitle.size() == 0 || searchResultArtist.size() == 0 || searchResultYear.size() == 0) {
+				cout << "\n Song can't be removed. There are no songs that match your description. \n";
+			} else {
+				pList.removeSong(aSong);
+				cout << "\n The song, " << title << ", " << year << " by "
+						<< artist << " has been removed from the playlist. \n";
+			}
+
+		}
+
+		// if input is 6, then save the playlist and assure user playlist has been saved
+		else if (input == 6) {
+			pList.save();
+			cout << "Playlist Saved! \n";
+		}
+
+	} while (input != 0);
+}
+
+

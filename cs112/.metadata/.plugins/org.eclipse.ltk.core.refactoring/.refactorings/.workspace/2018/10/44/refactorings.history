@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;lab5/StackException.h&apos;" deleteContents="false" description="Delete resource &apos;lab5/StackException.h&apos;" element1="/lab5/StackException.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1540857941097"/>
+</session>

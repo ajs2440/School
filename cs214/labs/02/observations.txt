@@ -1,0 +1,141 @@
+
+
+Example 1 (lex.yy.c) observation:
+	The case statements correlates with the line number in 
+	the example1.lex file (e.g. line 6 is a statement about the start
+	command and hence case 1 is executed appropriately). This part
+	uses a while loop and switch statements to function appropriately
+	but interestingly enough uses a goto statement as well, which is 
+	considered bad programming practice. 
+
+Example 2 outputs:
+	21
+	NUMBER
+
+	a65
+	WORD
+
+	nani
+	WORD
+
+	thelegend27
+	WORD
+
+	1
+	NUMBER
+
+	0
+	NUMBER
+
+	10000000
+	NUMBER
+
+What happens with an underscore? 
+	1_0
+	NUMBER
+	_NUMBER
+
+	s_0
+	WORD
+	_NUMBER
+
+Why?
+	The underscore is just reprinted because there isn't a special
+	instruction that we have specified in the lex file for underscores.
+	Hence, in the first output, 1 is recognized as a NUMBER, the 
+	underscore is reprinted, and 0 is recognized as another NUMBER.
+
+Underscore tests:
+	a_b
+	WORD
+
+	nani_0
+	WORD
+
+	0_0
+	NUMBER
+	WORD
+
+Example 3 output:
+	KEYWORD: class
+	IDENTIFIER: StudentInfo
+	PUNCTUATION: {
+	KEYWORD: public
+	PUNCTUATION: :
+	IDENTIFIER: StudentInfo
+	PUNCTUATION: (
+	PUNCTUATION: )
+	PUNCTUATION: {
+	IDENTIFIER: myGPA
+	OPERATOR: =
+	DOUBLE: 0.0 (0)
+	PUNCTUATION: ;
+	IDENTIFIER: myHours
+	OPERATOR: =
+	INTEGER: 0 (0)
+	PUNCTUATION: ;
+	PUNCTUATION: }
+	IDENTIFIER: StudentInfo
+	PUNCTUATION: (
+	KEYWORD: double
+	IDENTIFIER: gpa
+	PUNCTUATION: ,
+	KEYWORD: int
+	IDENTIFIER: hours
+	PUNCTUATION: )
+	PUNCTUATION: {
+	IDENTIFIER: myGPA
+	OPERATOR: =
+	IDENTIFIER: gpa
+	PUNCTUATION: ;
+	IDENTIFIER: myHours
+	OPERATOR: =
+	IDENTIFIER: hours
+	PUNCTUATION: ;
+	PUNCTUATION: }
+	KEYWORD: private
+	PUNCTUATION: :
+	KEYWORD: double
+	IDENTIFIER: myGPA
+	PUNCTUATION: ;
+	KEYWORD: int
+	IDENTIFIER: myHours
+	PUNCTUATION: ;
+	PUNCTUATION: }
+	PUNCTUATION: ;
+
+Example 4:
+What differentiates a terminal from a non-terminal?
+	The non-terminals, such as command, need to be defined further
+	until a terminal is reached. So 'command' is then defined by 
+	'heat_switch' which returns the heat token and is defined by a 
+	printf statement, making 'heat_switch' a terminal.
+
+Example 4 outputs:
+	heat on
+		Heat turned on or off
+	heat on
+		Heat turned on or off
+	heat off
+		Heat turned on or off
+	set temperature 30
+		Temperature set
+
+Do you see anything strange?
+	When entering valid commands, an appropriate response is given
+	but the response doesn't specify exactly whether the heat is 
+	turned on or if it's turned off and what numerical value the 
+	temperature is set to.
+
+Example 5 output:
+	heat on
+		Heat turned on
+	heat off
+		Heat turned off
+	heat on
+		Heat turned on
+	set temperature 24
+		Temperature set to 24
+	set temperature 32
+		Temperature set to 32
+

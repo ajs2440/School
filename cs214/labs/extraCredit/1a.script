@@ -1,0 +1,288 @@
+Script started on Wed 17 Apr 2019 02:59:05 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) 3 4 5)
+5
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) 3 4 -5)
+5
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) -21 44 46)
+46
+user=> (fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) -46 44 21)
+#object[user$eval157$fn__158 0x40f1be1b "user$eval157$fn__158@40f1be1b"]
+-46
+44
+21
+RuntimeException Unmatched delimiter: )  clojure.lang.Util.runtimeException (Util.java:221)
+user=> 
+ajs244@gold22:~$ script sc  1. a.script
+Script started, file is 1a.script
+ajs244@gold22:~$ ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) 34  4   5)
+bash: syntax error near unexpected token `('
+ajs244@gold22:~$ script script      1a.script
+Script started, file is 1a.script
+ajs244@gold22:~$ clok jure
+Clojure 1.9.0
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) 3 4 5)
+5
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) 3 4 -5)
+5
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) -21 4 46)
+46
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) -46 4 21)
+46
+user=> 
+ajs244@gold22:~$ exit
+Script done, file is 1a.script
+ajs244@gold22:~$ cat sc  1a.script
+Script started on Wed 17 Apr 2019 03:00:48 PM EDT
+ajs244@gold22:~$ clok jure
+Clojure 1.9.0
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) 3 4 5)
+5
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) 3 4 -5)
+5
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) -21 4 46)
+46
+user=> ((fn [x y z] (max (Math/abs x) (Math/abs y) (Math/abs z))) -46 4 21)
+46
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:01:34 PM EDT
+ajs244@gold22:~$ script 1b.script
+Script started, file is 1b.script
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> ((fn [x y z] (+ x y z)) 1 2 3  )
+6
+user=> ((fn [x y z] (+ x y z)) 2 3 4)      -1 -2 -3)
+-6
+user=> ((fn [x y]   ] (nil? x)) 0)
+false
+user=> ((fn [x] (nil? x)) nil)
+true
+user=> ((fn [] 17.2) 12)
+ArityException Wrong number of args (1) passed to: user/eval161/fn--162  clojure.lang.AFn.throwArity (AFn.java:429)
+user=> ((fn [] 17.2) )
+17.2
+user=> 
+ajs244@gold22:~$ exit
+Script done, file is 1b.script
+ajs244@gold22:~$ script 1b.script
+Script started, file is 1b.script
+ajs244@gold22:~$ ((fn [x y z] (+ x y z)) 1 2 3)
+bash: syntax error near unexpected token `('
+ajs244@gold22:~$ exit
+Script done, file is 1b.script
+ajs244@gold22:~$ sci ript s 1/.  b.script
+Script started, file is 1b.script
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> ((fn [x y z] (+ x y z)) 1 2 3)
+6
+user=> ((fn [x y z] (+ x y z)) -1 -2 -3)
+-6
+user=> ((fn [x] (nil? x)) 0)
+false
+user=> ((fn [x] (nil? x)) nil)
+true
+user=> (fn    (fn [] 17.2) )
+17.2
+user=> 
+ajs244@gold22:~$ exit
+Script done, file is 1b.script
+ajs244@gold22:~$ cat s 1b.script
+Script started on Wed 17 Apr 2019 03:05:58 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> ((fn [x y z] (+ x y z)) 1 2 3)
+6
+user=> ((fn [x y z] (+ x y z)) -1 -2 -3)
+-6
+user=> ((fn [x] (nil? x)) 0)
+false
+user=> ((fn [x] (nil? x)) nil)
+true
+user=> (fn    (fn [] 17.2) )
+17.2
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:07:16 PM EDT
+ajs244@gold22:~$ script 2.script
+Script started, file is 2.script
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (defd    triple (fn [x] (* x 3)))
+#'user/triple
+user=> (triple 4)
+12
+user=> (#(* % 3) 4)
+12
+user=> (#(* %1      + (* %1 %1) (* %2 %2)))  3 4)
+25
+user=> (def sum2Squares #(+ (* %1 %1) (* %2 %2)))
+#'user/sum2Squares
+user=> (sumS 2Squares 3 4  )
+25
+user=> 
+ajs244@gold22:~$ exit
+Script done, file is 2.script
+ajs244@gold22:~$ cat 2.script
+Script started on Wed 17 Apr 2019 03:07:52 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (defd    triple (fn [x] (* x 3)))
+#'user/triple
+user=> (triple 4)
+12
+user=> (#(* % 3) 4)
+12
+user=> (#(* %1      + (* %1 %1) (* %2 %2)))  3 4)
+25
+user=> (def sum2Squares #(+ (* %1 %1) (* %2 %2)))
+#'user/sum2Squares
+user=> (sumS 2Squares 3 4  )
+25
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:12:54 PM EDT
+ajs244@gold22:~$ script sc  2a.script
+Script started, file is 2a.script
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (def squareSquare #(* (* % %) (* % %)))
+#'user/squareSquare
+user=> (squarwe    eSquare 4)  2)
+16
+user=> (squareSquare -2)
+16
+user=> (squareSquare 3)
+81
+user=> (squareSquare -3)
+81
+user=> 
+ajs244@gold22:~$ exit
+Script done, file is 2a.script
+ajs244@gold22:~$ cat 2a.script
+Script started on Wed 17 Apr 2019 03:16:14 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (def squareSquare #(* (* % %) (* % %)))
+#'user/squareSquare
+user=> (squarwe    eSquare 4)  2)
+16
+user=> (squareSquare -2)
+16
+user=> (squareSquare 3)
+81
+user=> (squareSquare -3)
+81
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:17:36 PM EDT
+ajs244@gold22:~$ script 3.script
+Script started, file is 3.script
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (ma  p inc [1 2 3 4])
+(2 3 4 5)
+user=> (map - [1 2 3 4  ])
+(-1 -2 -3 -4)
+user=> (map - [1 2 3 4] [1 2 3 4])
+(0 0 0 0)
+user=> (map even? [1 2 3 4])
+(false true false true)
+user=> (map str ["a" "b" "c"] ["A" "B" "C' "])
+("aA" "bB" "cC")
+user=> (map count [[11] [11 22] [11 22 33]])
+(1 2 3)
+user=> (map + [1 2 3 4] [1 2 3 4])
+(2 4 6 8)
+user=> ( map    map * [1 2 3 4] 1   [1 2 3 4])
+(1 4 9 16)
+user=> (Math/abs -3)
+3
+user=> (map Math/abs [-1 2 -3 4 -5])
+CompilerException java.lang.RuntimeException: Unable to find static field: abs in class java.lang.Math, compiling:(NO_SOURCE_PATH:10:1) 
+user=> ^[[A    (map (fn [x] (if (< x 0) (- x) x)) [-1 2 -3 4 -5])
+(1 2 3 4 5)
+user=> (defn subtractr -n [n d sequence  ] (map (fn [x] (- x n)) sequence))
+#'user/subtract-n
+user=> (subtract   -m n 2 [5 6 7 8])
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: subtrac-n in this context, compiling:(NO_SOURCE_PATH:13:1) 
+user=> ^[[A    (subtract-n 2 [5 6 7 8])
+(3 4 5 6)
+user=> 
+ajs244@gold22:~$ exit
+Script done, file is 3.script
+ajs244@gold22:~$ cat 3.script
+Script started on Wed 17 Apr 2019 03:18:29 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (ma  p inc [1 2 3 4])
+(2 3 4 5)
+user=> (map - [1 2 3 4  ])
+(-1 -2 -3 -4)
+user=> (map - [1 2 3 4] [1 2 3 4])
+(0 0 0 0)
+user=> (map even? [1 2 3 4])
+(false true false true)
+user=> (map str ["a" "b" "c"] ["A" "B" "C' "])
+("aA" "bB" "cC")
+user=> (map count [[11] [11 22] [11 22 33]])
+(1 2 3)
+user=> (map + [1 2 3 4] [1 2 3 4])
+(2 4 6 8)
+user=> ( map    map * [1 2 3 4] 1   [1 2 3 4])
+(1 4 9 16)
+user=> (Math/abs -3)
+3
+user=> (map Math/abs [-1 2 -3 4 -5])
+CompilerException java.lang.RuntimeException: Unable to find static field: abs in class java.lang.Math, compiling:(NO_SOURCE_PATH:10:1) 
+user=> ^[[A    (map (fn [x] (if (< x 0) (- x) x)) [-1 2 -3 4 -5])
+(1 2 3 4 5)
+user=> (defn subtractr -n [n d sequence  ] (map (fn [x] (- x n)) sequence))
+#'user/subtract-n
+user=> (subtract   -m n 2 [5 6 7 8])
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: subtrac-n in this context, compiling:(NO_SOURCE_PATH:13:1) 
+user=> ^[[A    (subtract-n 2 [5 6 7 8])
+(3 4 5 6)
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:27:04 PM EDT
+ajs244@gold22:~$ script 3a.script
+Script started, file is 3a.script
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (defn negate [sequence]
+   	(map (fn [x] (if (< x 0) (- x) (- 0 x))) sequence)
+)^[[D^[[C         )
+#'user/negate
+user=> (negate [-1 23  -3])
+(1 -2 3)
+user=> (negate [4 -5 6])
+(-4 5 -6)
+user=> 
+ajs244@gold22:~$ exit
+Script done, file is 3a.script
+ajs244@gold22:~$ cat 3a.script
+Script started on Wed 17 Apr 2019 03:32:48 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (defn negate [sequence]
+   	(map (fn [x] (if (< x 0) (- x) (- 0 x))) sequence)
+)^[[D^[[C         )
+#'user/negate
+user=> (negate [-1 23  -3])
+(1 -2 3)
+user=> (negate [4 -5 6])
+(-4 5 -6)
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:33:44 PM EDT
+ajs244@gold22:~$ exit

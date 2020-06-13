@@ -1,0 +1,17 @@
+Script started on Wed 17 Apr 2019 03:16:14 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (def squareSquare #(* (* % %) (* % %)))
+#'user/squareSquare
+user=> (squarwe    eSquare 4)  2)
+16
+user=> (squareSquare -2)
+16
+user=> (squareSquare 3)
+81
+user=> (squareSquare -3)
+81
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:17:36 PM EDT

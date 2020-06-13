@@ -1,0 +1,35 @@
+Script started on Wed 17 Apr 2019 03:18:29 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (ma  p inc [1 2 3 4])
+(2 3 4 5)
+user=> (map - [1 2 3 4  ])
+(-1 -2 -3 -4)
+user=> (map - [1 2 3 4] [1 2 3 4])
+(0 0 0 0)
+user=> (map even? [1 2 3 4])
+(false true false true)
+user=> (map str ["a" "b" "c"] ["A" "B" "C' "])
+("aA" "bB" "cC")
+user=> (map count [[11] [11 22] [11 22 33]])
+(1 2 3)
+user=> (map + [1 2 3 4] [1 2 3 4])
+(2 4 6 8)
+user=> ( map    map * [1 2 3 4] 1   [1 2 3 4])
+(1 4 9 16)
+user=> (Math/abs -3)
+3
+user=> (map Math/abs [-1 2 -3 4 -5])
+CompilerException java.lang.RuntimeException: Unable to find static field: abs in class java.lang.Math, compiling:(NO_SOURCE_PATH:10:1) 
+user=> ^[[A    (map (fn [x] (if (< x 0) (- x) x)) [-1 2 -3 4 -5])
+(1 2 3 4 5)
+user=> (defn subtractr -n [n d sequence  ] (map (fn [x] (- x n)) sequence))
+#'user/subtract-n
+user=> (subtract   -m n 2 [5 6 7 8])
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: subtrac-n in this context, compiling:(NO_SOURCE_PATH:13:1) 
+user=> ^[[A    (subtract-n 2 [5 6 7 8])
+(3 4 5 6)
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:27:04 PM EDT

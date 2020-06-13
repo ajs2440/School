@@ -1,0 +1,78 @@
+V "GNAT Lib v7"
+M P W=b
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_FLOATING_POINT
+RV NO_IO
+RV SPARK_05
+
+U temp_driver%b		temp_driver.adb		1b5b3069 NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.float_text_io%s	a-flteio.ads		a-flteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W temp_package%s	temp_package.adb	temp_package.ali
+
+D ada.ads		20170106103348 76789da1 ada%s
+D a-except.ads		20151016123252 291912d5 ada.exceptions%s
+D a-flteio.ads		20070406091342 e18a47a0 ada.float_text_io%s
+D a-ioexce.ads		20140225151544 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20141120112812 119b8fb3 ada.streams%s
+D a-tags.ads		20151016130316 01f5e3ef ada.tags%s
+D a-textio.ads		20140717063745 386df5d4 ada.text_io%s
+D a-tiflio.ads		20140717063513 56fbda09 ada.text_io.float_io%s
+D a-unccon.ads		20170106103348 31484697 ada.unchecked_conversion%s
+D interfac.ads		20160502101001 5ab55268 interfaces%s
+D i-cstrea.ads		20140801100435 e53d8b8e interfaces.c_streams%s
+D system.ads		20170510173650 4635ec04 system%s
+D s-crtl.ads		20141120112812 0ebbdb71 system.crtl%s
+D s-exctab.ads		20140225151139 54135002 system.exception_table%s
+D s-ficobl.ads		20140718105747 078245e4 system.file_control_block%s
+D s-parame.ads		20140801093848 7e2a0d7f system.parameters%s
+D s-soflin.ads		20151020124036 14e1eb6c system.soft_links%s
+D s-stache.ads		20140225151139 a37c21ec system.stack_checking%s
+D s-stalib.ads		20151112104907 09bd3940 system.standard_library%s
+D s-stoele.ads		20140225151139 2dc34a04 system.storage_elements%s
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20160502101423 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20140718092328 1b7d22d2 system.wch_con%s
+D temp_driver.adb	20190411183549 45d1369c temp_driver%b
+D temp_package.ads	20190412005937 876db481 temp_package%s
+X 1 ada.ads
+16K9*Ada 20e8 24|8r6 8r23 9r6 9r29
+X 3 a-flteio.ads
+20K13*Float_Text_IO[8|46] 24|9w10 9r33
+X 7 a-textio.ads
+49K13*Text_IO 471e16 24|8w10 8r27
+166U14*New_Line 24|34s6 42s6 43s6 52s7 56s6
+240U14*Get 24|58s6
+242U14*Put 24|24s6 28s6 31s6 35s6 36s6 37s6 38s6 39s6 40s6 41s6 57s6
+263U14*Put_Line 24|23s6
+X 8 a-tiflio.ads
+57U14*Get 24|32s6[3|20]
+X 24 temp_driver.adb
+12U11*temp_driver 12b11 63l5 63t16
+14r1 baseTemp{25|12R8} 25m15 25r15 26r31 26r53 45r21 46r14 48r14 50r14 53r17
+. 53m38
+15r1 limitTemp{25|12R8} 29m15 29r15 45r31
+16r1 myTemp{25|12R8} 26m11 46m24 47m19 47r19 48m24 49m19 49r19 50m24 51m19
+. 51r19
+17f1 stepValue{float} 32m10 53r27
+18a1 input{string} 58m10 59r27
+21l3 Until_Loop 59r11 61l12 61e22
+X 25 temp_package.ads
+8K9*Temp_Package 24|10w6 10r24 14r12 15r13 16r10 25|138e17
+12R8*Temperature 24|14r25 15r26 16r23 25|136e17
+31U13*Init 24|26s6
+39V12*getMyDegree{float} 24|26s19
+47V12*getMyScale{character} 24|26s42
+56U13*getInF 24|46s7
+65U13*getInC 24|48s7
+74U13*getInK 24|50s7
+81U13*readTemp 24|25s6 29s6
+89U13*displayTemp 24|47s7 49s7 51s7
+98U13*raiseTemp 24|53s7
+126V12*lessThan{boolean} 24|45s12
+

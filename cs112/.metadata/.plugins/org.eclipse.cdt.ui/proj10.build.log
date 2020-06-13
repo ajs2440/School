@@ -1,0 +1,14 @@
+17:14:24 **** Auto Build of configuration Default for project proj10 ****
+make all 
+
+Linking main...
+g++ main.o ImageConverter.o -o main -L/usr/local/lib/ -L/usr/lib  -L/opt/X11/lib -L/opt/AMDAPP/lib/x86_64/ -Wl,-rpath=/usr/local/lib/ -ltsgl -lfreetype -lGLEW -lglfw -lX11 -lGL -lXrandr -fopenmp  
+/usr/bin/ld: main.o: relocation R_X86_64_32 against `.rodata.str1.8' can not be used when making a PIE object; recompile with -fPIC
+/usr/bin/ld: final link failed: Nonrepresentable section on output
+Makefile:71: recipe for target 'main' failed
+collect2: error: ld returned 1 exit status
+make: *** [main] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+
+17:14:24 Build Failed. 4 errors, 0 warnings. (took 602ms)
+

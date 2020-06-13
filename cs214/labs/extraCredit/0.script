@@ -1,0 +1,9 @@
+Script started on Wed 17 Apr 2019 02:45:48 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (+ 1 2 3 4 5)
+15
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 02:46:29 PM EDT

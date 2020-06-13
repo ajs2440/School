@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;proj9/bsttest.txt&apos; to &apos;BSTGetHeightTest.txt&apos;" description="Rename resource &apos;bsttest.txt&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="bsttest.txt" name="BSTGetHeightTest.txt" stamp="1543449719428" updateReferences="true"/>
+</session>

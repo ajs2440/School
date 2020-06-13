@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="isRegEx" value="false"/>
+		<item key="selection" value="writeTo(ostream"/>
+		<item key="casesensitive" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="wrap" value="true"/>
+		<item key="wholeword" value="false"/>
+		<list key="findhistory">
+			<item value="List"/>
+			<item value="writeTo(ostream"/>
+			<item value="writeTo"/>
+			<item value="StreamInput"/>
+			<item value="streaminput"/>
+			<item value="operator"/>
+			<item value="BST"/>
+			<item value="BST::"/>
+			<item value="Item"/>
+			<item value="ArrayQueue q"/>
+			<item value="myBody"/>
+			<item value="mybody"/>
+			<item value="_str"/>
+			<item value="stoi"/>
+			<item value="ctr"/>
+		</list>
+		<list key="replacehistory">
+			<item value="BST&lt;double&gt;"/>
+			<item value="BST&lt;Item&gt;::"/>
+			<item value="ArrayQueue&lt;double&gt; q"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_WIDTH" value="329"/>
+		<item key="DIALOG_FONT_NAME" value="1|Sans|10.0|0|GTK|1|"/>
+		<item key="DIALOG_HEIGHT" value="407"/>
+		<item key="DIALOG_X_ORIGIN" value="882"/>
+		<item key="DIALOG_Y_ORIGIN" value="37"/>
+	</section>
+</section>

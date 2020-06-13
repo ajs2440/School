@@ -1,0 +1,421 @@
+Script started on Thu 28 Mar 2019 06:09:33 PM EDT
+ajs244@gold20:~/cs214/labs/07$ cat name_tester.adb
+-- namer.adb "test-drives" the Name type.
+-- Begun by: Prof. Adams, CS 214 at Calvin College.
+-- Completed by: Advait Scaria
+-- Date: 03/28/2019
+----------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure name_tester is
+
+  NAME_SIZE : constant Integer := 8;
+
+  type Name is
+    record
+      MyFirst, MyMiddle, MyLast : String( 1..NAME_SIZE );
+    end record;
+
+  aName : Name ;
+
+
+  ----------------------------------------------
+  -- Init initializes a Name variable          -
+  -- Receive: theName, the Name variable;      -
+  --          First, the first name;           -
+  --          Middle, the middle name;         -
+  --          Last, the last name.             -
+  -- Return: theName, its fields set to First, -
+  --               Middle, and Last.           -
+  ----------------------------------------------
+
+  procedure Init (TheName : out Name; First, Middle, Last : in String) is
+  begin
+    TheName.MyFirst := First;
+    TheName.MyMiddle := Middle;
+    TheName.MyLast := Last;
+  end Init;
+
+  ----------------------------------------------
+  -- getFirst(Name) retrieves Name.myFirst     -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myFirst.                  -
+  ----------------------------------------------
+
+  function getFirst(TheName : in Name) return String is
+  begin
+    return TheName.MyFirst;
+  end getFirst;
+
+  ----------------------------------------------
+  -- getMiddle(Name) retrieves Name.myMiddle   -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myMiddle.                 -
+  ----------------------------------------------
+
+  function getMiddle(TheName : in Name) return String is
+  begin
+    return TheName.MyMiddle;
+  end getMiddle;
+
+  ----------------------------------------------
+  -- getMiddle(Name) retrieves Name.myLast     -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myLast.                   -
+  ----------------------------------------------
+
+  function getLast(TheName : in Name) return String is
+  begin
+    return TheName.MyLast;
+  end getLast;
+
+  -----------------------------------------------
+  -- getFullName(Name) retrieves Name as a String  -
+  -- Receive: theName, a Name.                  -
+  -- PRE: theName has been initialized.         -
+  -- Return: a String representation of theName -
+  -----------------------------------------------
+
+  function getFullName(TheName : in Name) return String is
+  begin
+    return getFirst(aName) & " " & getMiddle(aName) & " " & getLast(aName);
+  end getFullName;
+
+  ----------------------------------------------
+  -- Put(Name) displays a Name value.          -
+  -- PRE: theName has been initialized.        -
+  -- Receive: theName, a Name.                 -
+  -- Output: theName, to the screen.           -
+  ----------------------------------------------
+
+  procedure Put(TheName : in Name) is
+  begin
+    Put ( getFullName(aName) );
+  end Put;
+
+
+begin
+  Init(aName, "John    ", "Paul    ", "Jones   ");
+
+  pragma Assert( getFirst(aName) = "John    ", "getFirst() failed");
+  pragma Assert( getMiddle(aName) = "Paul    ", "getMiddle() failed");
+  pragma Assert( getLast(aName) = "Jones   ", "getLast() failed");
+  pragma Assert( getFullName(aName) = "John     Paul     Jones   ", 
+                   "getFullName() failed");
+
+  Put(aName); New_line;
+  Put("All tests passed!"); New_line;
+
+end name_tester;
+
+ajs244@gold20:~/cs214/labs/07$ ./name_tester
+John     Paul     Jones   
+All tests passed!
+ajs244@gold20:~/cs214/labs/07$ exit
+
+Script done on Thu 28 Mar 2019 06:09:44 PM EDT
+Script started on Thu 28 Mar 2019 05:38:12 PM EDT
+ajs244@gold20:~/cs214/labs/07/clojure$ cat src/nameTester.clj
+;;;; nameTester.clj creates and tests a clojure Name type.
+;;;;
+;;;; Output: results of testing Name functions.
+;;;;
+;;;; Usage: clojure -m nameTester
+;;;;
+;;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;;; Completed by: Advait Scaria
+;;;; Date: 03/28/2019
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns nameTester)   ; program name
+
+;;; define a Clojure record named Name 
+;;; (which compiles to a Java class).
+
+(defrecord Name [firstName middleName lastName])
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; make-Name constructs a Name from three strings. 
+;;; Receive: firstN, middleN and lastN, three strings.
+;;; Return: the Name (firstN middleN lastN). 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn make-Name [first middle last]
+	(->Name first middle last)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFirst() extracts the first name of a Name object.
+;;; Receive: aName, a Name.
+;;; Return: the firstName string in aName.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn getFirst [^Name aName]
+	(:firstName aName)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getMiddle() extracts the middle name of a name object.
+;;; Receive: aName, a Name. 
+;;; Return: the middleName string in aName.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+(defn getMiddle [^Name aName]
+	(:middleName aName)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getLast() extracts the last name of a name object.
+;;; Receive: aName, a Name. 
+;;; Return: the lastName string in aName.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+(defn getLast [^Name aName]
+	(:lastName aName)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFullName() returns a full name in F-M-L order. 
+;;; Receive: aName, a Name. 
+;;; Return: firstName, middleName, lastName,
+;;;           separated by spaces. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+(defn toString [^Name aName]
+	(str (getFirst aName) " " (getMiddle aName) " " (getLast aName))
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; printName() displays a name object.
+;;; Receive: aName, a Name.
+;;; Output: the strings in aName.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+(defn printName [^Name aName]
+	(print (toString aName))
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; A simple driver to test our Name functions. 
+;;; Output: the result of testing our Name functions.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn -main []
+  (let
+    [                                          ; 3 ways to construct an object:
+      name1 (make-Name "John" "Paul" "Jones")  ; -using our "make-" constructor
+      name2 (->Name "Jane" "Penelope" "Jones") ; -invoking constructor directly
+                                               ; -mapping field-names to values
+      name3 (map->Name {:lastName "Jones" :firstName "Jinx" :middleName "Joy"})
+    ]
+    ;; ----- SECTION 1 -----
+    (println)
+    (print name1) (println)
+    (assert (= (getFirst name1) "John") "getFirst(1) failed")
+    (assert (= (getMiddle name1) "Paul") "getMiddle(1) failed")
+    (assert (= (getLast name1) "Jones") "getLast(1) failed")
+    (assert (= (toString name1) "John Paul Jones") "toString(1) failed")
+    (printName name1) (println)
+    ;; ----- SECTION 2 -----
+    (println)
+    (print name2) (println)
+    (assert (= (getFirst name2) "Jane") "getFirst(2) failed")
+    (assert (= (getMiddle name2) "Penelope") "getMiddle(2) failed")
+    (assert (= (getLast name2) "Jones") "getLast(2) failed")
+    (assert (= (toString name2) "Jane Penelope Jones") "toString(2) failed")
+    (printName name2) (println)
+    ;; ----- SECTION 3 -----
+    (println)
+    (print name3) (println)
+    (assert (= (getFirst name3) "Jinx") "getFirst(3) failed")
+    (assert (= (getMiddle name3) "Joy") "getMiddle(3) failed")
+    (assert (= (getLast name3) "Jones") "getLast(3) failed")
+    (assert (= (toString name3) "Jinx Joy Jones") "toString(3) failed")
+    (printName name3) (println)
+
+    (println "\nAll tests passed!\n")
+  )
+)
+
+ajs244@gold20:~/cs214/labs/07/clojure$ clojure -m nameTester
+
+#nameTester.Name{:firstName John, :middleName Paul, :lastName Jones}
+John Paul Jones
+
+#nameTester.Name{:firstName Jane, :middleName Penelope, :lastName Jones}
+Jane Penelope Jones
+
+#nameTester.Name{:firstName Jinx, :middleName Joy, :lastName Jones}
+Jinx Joy Jones
+
+All tests passed!
+
+ajs244@gold20:~/cs214/labs/07/clojure$ exit
+
+Script done on Thu 28 Mar 2019 05:38:33 PM EDT
+Script started on Fri 29 Mar 2019 01:40:46 PM EDT
+ajs244@gold30:~/cs214/labs/07$ cat NameTester.java
+/* NameTester.java is a 'driver' to test class Name.
+ * Begun by: Prof. Adams, for CS 214 at Calvin College.
+ * Student: Advait Scaria
+ * Date: 03/28/2019
+ ************************************************************/
+
+public class NameTester  
+{
+  public static void main(String[] args)
+  {
+      Name aName = new Name("John", "Paul", "Jones");
+
+	  assert aName.getFirst().equals("John") ;
+      assert aName.getMiddle().equals("Paul") ;
+      assert aName.getLast().equals("Jones") ;
+
+      System.out.println(aName);
+      assert aName.toString().equals("John Paul Jones");
+
+      System.out.println("All tests passed!");
+  }
+}
+
+class Name
+   {
+      private String myFirst,
+                     myMiddle,
+                     myLast;
+
+      /* Name explicit constructor...constructs a Name object from three strings.
+       * Receive: first, middle and last, three strings.
+       * POST: Makes a Name object and initializes its three variables to the given parameters.
+       */
+      public Name(String first, String middle, String last)
+   		{
+      		myFirst = first;
+      		myMiddle = middle;
+      		myLast = last;
+   		}
+
+   	  /* getFirst()
+   	   * PRE: Name is initialized with its three name parts.
+       * Return: myFirst, the first name of the Name object.
+       */
+   	  public String getFirst()
+   		{
+      		return myFirst;
+   		}
+
+      /* getMiddle()
+   	   * PRE: Name is initialized with its three name parts.
+       * Return: myMiddle, the middle name of the Name object.
+       */
+   	  public String getMiddle()
+   		{
+      		return myMiddle;
+   		}
+
+   	  /* getLast()
+   	   * PRE: Name is initialized with its three name parts.
+       * Return: myLast, the last name of the Name object.
+       */
+   	  public String getLast()
+   		{
+      		return myLast;
+   		}
+
+   	  /* toString()
+   	   * PRE: Name is initialized with its three name parts.
+       * Return: a String representation of the Name object
+       *		 that containts all of its three names together
+       *		 separated by spaces.
+       */
+   	  public String toString()
+   		{
+      		return myFirst + ' ' + myMiddle + ' ' + myLast;
+   		}
+   };
+ajs244@gold30:~/cs214/labs/07$ make java
+javac -deprecation NameTester.java
+ajs244@gold30:~/cs214/labs/07$ java -ea NameTester 
+John Paul Jones
+All tests passed!
+ajs244@gold30:~/cs214/labs/07$ exit
+
+Script done on Fri 29 Mar 2019 01:41:10 PM EDT
+Script started on Thu 28 Mar 2019 06:08:45 PM EDT
+ajs244@gold20:~/cs214/labs/07$ cat NameTester.rb
+# NameTester.rb tests class Name and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by: Advait Scaria
+# Date: 03/28/2019
+####################################################
+
+require 'test/unit/assertions'   # needed for assert
+include Test::Unit::Assertions
+
+class Name 
+	
+	###############################################################
+	# initialize() constructs a Name object from three strings. 
+	# Receive: first, middle and last, three strings.
+	# Return: the Name, its fields set to first, middle and last. 
+	###############################################################
+
+	def initialize(first, middle, last)
+       @first, @middle, @last = first, middle, last
+    end
+
+    ###############################################################
+	# getters/accessors for attributes first, middle and last in Name object.
+	###############################################################
+    attr_reader :first, :middle, :last
+
+	###############################################################
+	# fullName() returns a String containing the first, middle, and
+	# 	 		 last names in that order separated by spaces. 
+	# PRE: Name object must be initialized.
+	# Return: a String representation of the Name object. 
+	###############################################################
+
+    def fullName()
+    	@first + " " + @middle + " " + @last
+    end
+
+	###############################################################
+	# print() displays a Name object. 
+	# PRE: Name object must be initialized.
+	# Output: a String representation of the Name object to the screen.
+	# Return: a String representation of the Name object. 
+	###############################################################
+
+    def print()
+    	puts fullName()
+    	return fullName()
+    end
+end
+
+
+def testName
+   name = Name.new("John", "Paul", "Jones")
+
+   assert name.first == "John", "first failed"
+   assert name.middle == "Paul", "middle failed"
+   assert name.last == "Jones", "last failed"
+   assert name.fullName == "John Paul Jones", "fullName failed"
+   assert name.print == "John Paul Jones", "print failed"
+   
+   print "All tests passed!\n"
+end
+
+testName
+
+ajs244@gold20:~/cs214/labs/07$ ruby NameTester.rb
+John Paul Jones
+All tests passed!
+ajs244@gold20:~/cs214/labs/07$ exit
+
+Script done on Thu 28 Mar 2019 06:09:00 PM EDT

@@ -1,0 +1,17 @@
+Script started on Wed 17 Apr 2019 03:05:58 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> ((fn [x y z] (+ x y z)) 1 2 3)
+6
+user=> ((fn [x y z] (+ x y z)) -1 -2 -3)
+-6
+user=> ((fn [x] (nil? x)) 0)
+false
+user=> ((fn [x] (nil? x)) nil)
+true
+user=> (fn    (fn [] 17.2) )
+17.2
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:07:16 PM EDT

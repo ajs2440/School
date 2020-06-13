@@ -1,0 +1,15 @@
+19:57:37 **** Incremental Build of configuration Debug for project proj001 ****
+make all 
+Building file: ../Application.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Application.d" -MT"Application.o" -o "Application.o" "../Application.cpp"
+Finished building: ../Application.cpp
+ 
+Building target: proj001
+Invoking: GCC C++ Linker
+g++  -o "proj001"  ./Application.o ./PlayList.o ./PlayListTester.o ./Song.o ./SongTester.o ./main.o   
+Finished building target: proj001
+ 
+
+19:57:38 Build Finished (took 975ms)
+

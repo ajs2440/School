@@ -1,0 +1,15 @@
+Script started on Wed 17 Apr 2019 03:32:48 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (defn negate [sequence]
+   	(map (fn [x] (if (< x 0) (- x) (- 0 x))) sequence)
+)^[[D^[[C         )
+#'user/negate
+user=> (negate [-1 23  -3])
+(1 -2 3)
+user=> (negate [4 -5 6])
+(-4 5 -6)
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 03:33:44 PM EDT

@@ -1,0 +1,2012 @@
+Script started on Fri 12 Apr 2019 01:02:19 AM EDT
+ajs244@maroon12:~/cs214/projects/proj08/java$ cat *.java
+/* TempDriver.java is a 'driver' to test class Temperature
+ * 				   by displaying a table of Temperatures.
+ * Begun by: Prof. Adams, for CS 214 at Calvin College.
+ * Student: Advait Scaria
+ * Date: 04/08/2019
+ ************************************************************/
+
+import java.io.*;
+import java.util.*;
+
+public class TempDriver  
+{
+  public static void main(String[] args)
+  {
+
+  	while (true) {
+  		System.out.println("");
+   		String userInput = "";
+
+  		Temperature baseTemp = new Temperature(0, 'F');
+  		Temperature limitTemp = new Temperature(0, 'F');
+
+    	System.out.print("\nbaseTemp ");
+    	baseTemp.readTemp();
+    	Temperature myTemp = new Temperature(baseTemp.getMyDegree(), baseTemp.getMyScale());
+
+    	System.out.print("\nlimitTemp ");
+    	limitTemp.readTemp();
+
+    	Scanner input = new Scanner(System.in);
+   		System.out.print("\nstepValue: ");
+    	double stepValue = input.nextDouble();
+
+    	System.out.print("\n\tFahrenheit\t\tCelsius\t\t\tKelvin\n");
+    	System.out.println("");
+    	do {
+    		myTemp.getInF().displayTemp();
+    		myTemp.getInC().displayTemp();
+    		myTemp.getInK().displayTemp();
+    		System.out.print("\n");
+    		myTemp = myTemp.raise(stepValue);
+    	} while (myTemp.lessThan(limitTemp));
+
+    	System.out.println("");
+    	System.out.print("Type 'No' to exit, anything else to continue: ");
+    	Scanner uInput = new Scanner(System.in);
+    	userInput = uInput.nextLine();
+    	if (userInput.equals("No")) {
+    		break;
+    	}
+  	}
+  }
+}
+/* Temperature.java implements class Temperature.
+ * Begun by: Prof. Adams, for CS 214 at Calvin College.
+ * Student: Advait Scaria
+ * Date: 04/08/2019
+ ************************************************************/
+
+import java.io.*;
+import java.util.*;
+import java.lang.Math.*;
+
+class Temperature {
+
+  private double myDegree;
+  private char myScale;
+
+  /* Temperature object constructor with initialization
+   * @param: degree, a double.
+   * @param: scale, a char.
+   * POST: myDegree = degree,
+   *       myScale = scale,
+   *       if isValid() returns true.
+   */  
+  public Temperature(final double degree, final char scale) {
+    if (isValid(degree, scale)) {
+      myScale = scale;
+      myDegree = degree;
+    } 
+  }
+ 
+  /* isValid()
+   * @param: degree, a double.
+   * @param: scale, a char.
+   * Returns: true given valid degree and scale inputs, false otherwise.
+   * POST: displays appropriate invalid statements in console given invalid
+   *       inputs.
+   */
+  public boolean isValid(double degree, char scale) {
+    if ((scale == 'F') || (scale == 'f')) {
+      if (degree < -459.67) {
+        System.out.println("Invalid Fahrenheit Degree"); 
+        return false;
+      } else {
+        return true; 
+      }
+    } 
+    else if ((scale == 'C') || (scale == 'c')) {
+      if (degree < -273.15) {
+        System.out.println("Invalid Celsius Degree"); 
+        return false;
+      } else {
+        return true; 
+      }
+    } 
+    else if ((scale == 'K') || (scale == 'k')) {
+      if (degree < 0) {
+        System.out.println("Invalid Kelvin Degree"); 
+        return false;
+      } else {
+        return true; 
+      }
+    } 
+    else { 
+      System.out.println("Invalid Input"); 
+      return false; }
+  }
+
+  /* getMyDegree() -- getter for myDegree
+   * Returns: myDegree, a double.
+   */
+  public final double getMyDegree() {
+      return myDegree;
+  }
+
+  /* getMyScale() -- getter for myScale
+   * Returns: myScale, a char.
+   */
+  public final char getMyScale() {
+      return myScale;
+  }
+
+  /* getInF() -- gets temperature in Fahrenheit
+   * PRE: this temp object is valid.
+   * Returns: this or tempInF, a Fahrenheit scale Temperature object.
+   */
+  public Temperature getInF() {
+    if (getMyScale() == 'F' || getMyScale() == 'f') {
+      return this;
+    }
+    else {
+      double degreeF = 0.0;
+      if (getMyScale() == 'C' || getMyScale() == 'c') {
+        degreeF = ((9.0/5.0) * getMyDegree()) + 32.0;
+      } 
+      else {
+        degreeF = ((getMyDegree() - 273.15) * (9.0/5.0)) + 32.0;
+      }
+      Temperature tempInF = new Temperature(degreeF, 'F');
+
+      return tempInF;
+    } 
+  }
+
+  /* getInC() -- gets temperature in Celsius
+   * PRE: this temp object is valid.
+   * Returns: this or tempInC, a Celsius scale Temperature object.
+   */
+  public Temperature getInC() {
+    if (getMyScale() == 'C' || getMyScale() == 'c') {
+      return this;
+    }
+    else {
+      double degreeC = 0.0;
+      if (getMyScale() == 'F' || getMyScale() == 'f') {
+        degreeC = (5.0/9.0) * (getMyDegree() - 32.0);
+      } 
+      else {
+        degreeC = getMyDegree() - 273.15; 
+      }
+      Temperature tempInC = new Temperature(degreeC, 'C');
+      return tempInC;
+    }
+  }
+
+  /* getInK() -- gets temperature in Kelvin
+   * PRE: this temp object is valid.
+   * Returns: this or tempInK, a Kelvin scale Temperature object.
+   */
+  public Temperature getInK() {
+    if (getMyScale() == 'K' || getMyScale() == 'k') {
+      return this;
+    }
+    else {
+      double degreeK = 0.0;
+      if (getMyScale() == 'F' || getMyScale() == 'f') {
+        degreeK = (5.0/9.0) * (getMyDegree() + 459.67);
+      } 
+      else {
+        degreeK = getMyDegree() + 273.15;
+      }
+      Temperature tempInK = new Temperature(degreeK, 'K');
+      return tempInK;
+    } 
+  }
+
+  /* readTemp() -- reads Temperature object values from input
+   * PRE: valid myDegree and myScale inputs.
+   * POST: my Temperature object changed with input values if valid.
+   */
+  public void readTemp() {
+    System.out.print("(Enter the temperature in the format --- degrees, scale): ");
+    Scanner input = new Scanner(System.in);
+    final double degrees = input.nextDouble();
+    final char scale = input.next().charAt(0);
+    if (isValid(degrees, scale)) {
+      myScale = scale;
+      myDegree = degrees;
+    } 
+  }
+
+  /* displayTemp() -- outputs Temperature object values
+   * PRE: my Temperature object is initialized with valid values.
+   * POST: myDegree and myScale output to console.
+   */
+  public void displayTemp() {
+    System.out.print("\t");
+    System.out.printf("%.5f", getMyDegree());
+    System.out.print(" ");
+    System.out.print(getMyScale());
+    System.out.print("\t");
+  }
+  
+  /* raise() -- raises myDegree by degrees amount
+   * @param: degrees, a double.
+   * PRE: degrees > 0.
+   * Returns: this or newTemp, a myScale scale Temperature object with
+   *          myDegree = myDegree + degrees.
+   */
+  public Temperature raise(final double degrees) {
+    if (degrees > 0) {
+      Temperature newTemp = new Temperature(getMyDegree() + degrees, getMyScale());
+      return newTemp;
+    }
+    else {
+      System.out.println("Please enter a degree greater than 0 to raise the temperature by!");
+      return this;
+    }
+  }
+
+  /* lower() -- lowers myDegree by degrees amount
+   * @param: degrees, a double.
+   * PRE: degrees > 0.
+   * Returns: this or newTemp, a myScale scale Temperature object with
+   *          myDegree = myDegree - degrees.
+   */
+  public Temperature lower(final double degrees) {
+    if (degrees > 0) {
+      if (isValid(getMyDegree() - degrees, getMyScale())) {
+        Temperature newTemp = new Temperature(getMyDegree() - degrees, getMyScale());
+        return newTemp;
+      } else { return this; }
+    } 
+    else {
+      System.out.println("\nPlease enter a degree greater than 0 to lower the temperature by!");
+      return this;
+    }
+  }
+
+  /* equals()
+   * @param: aTemp, a Temperature.
+   * Returns: true if both Temperatures have same degrees when 
+   *          converted to the same scale.
+   */
+  public boolean equals(Temperature aTemp) {
+    if (getMyScale() == aTemp.getMyScale() && getMyDegree() == aTemp.getMyDegree()) {
+      return true;
+    }
+    else {
+      if (getMyScale() == 'F' || getMyScale() == 'f') {
+        Temperature temp = aTemp.getInF();
+        return getMyDegree() == temp.getMyDegree();
+      }
+      else if (getMyScale() == 'C' || getMyScale() == 'c') {
+        Temperature temp = aTemp.getInC();
+        return getMyDegree() == temp.getMyDegree();
+      }
+      else if (getMyScale() == 'K' || getMyScale() == 'k') {
+        Temperature temp = aTemp.getInK();
+        return getMyDegree() == temp.getMyDegree();
+      }
+      else { return false; }
+    }
+  }
+
+  /* lessThan()
+   * @param: aTemp, a Temperature.
+   * Returns: true if my Temperature is less than the given Temperature 
+   *          when converted to the same scale.
+   */
+  public boolean lessThan(Temperature aTemp) {
+    if (getMyScale() == aTemp.getMyScale()) {
+      return getMyDegree() < aTemp.getMyDegree();
+    }
+    else {
+      if (getMyScale() == 'F' || getMyScale() == 'f') {
+        Temperature temp = aTemp.getInF();
+        return getMyDegree() < temp.getMyDegree();
+      }
+      else if (getMyScale() == 'C' || getMyScale() == 'c') {
+        Temperature temp = aTemp.getInC();
+        return getMyDegree() < temp.getMyDegree();
+      }
+      else if (getMyScale() == 'K' || getMyScale() == 'k') {
+        Temperature temp = aTemp.getInK();
+        return getMyDegree() < temp.getMyDegree();
+      }
+      else { return false; }
+    }
+  }
+}
+
+/* TemperatureTester.java is a tester to test class Temperature.
+ * Begun by: Prof. Adams, for CS 214 at Calvin College.
+ * Student: Advait Scaria
+ * Date: 04/08/2019
+ ************************************************************/
+
+public class TemperatureTester  
+{
+  //valid temperatures
+  static Temperature temp1a = new Temperature(11, 'F');
+  static Temperature temp1b = new Temperature(22, 'C');
+  static Temperature temp1c = new Temperature(33, 'K');
+  static Temperature temp1d = new Temperature(-11.12, 'f');
+  static Temperature temp1e = new Temperature(-22.23, 'c');
+  static Temperature temp1f = new Temperature(33.34, 'k');
+
+  static Temperature temp1g = new Temperature(-40, 'F');
+  static Temperature temp1h = new Temperature(-40, 'C');
+  static Temperature temp1i = new Temperature(22, 'C');
+  static Temperature temp1j = new Temperature(21, 'C');
+
+  public static void main(String[] args)
+  {
+      
+      System.out.println("");
+      System.out.println("Invalid Temps Blow:");
+
+      //invalid temperatures
+      Temperature temp2a = new Temperature(-500, 'F');
+      Temperature temp2b = new Temperature(-459.67, 'f');
+      Temperature temp2c = new Temperature(-500, 'C');
+      Temperature temp2d = new Temperature(-273.15, 'c');
+      Temperature temp2e = new Temperature(-500, 'K');
+      Temperature temp2f = new Temperature(0, 'k');
+      Temperature temp2g = new Temperature(-500, 'A');
+      
+      System.out.println("");
+      testAccessors();
+      testConversions();
+      testReadInput();
+      testDisplayTemp();
+      testRaise();
+      testLower();
+      testEquals();
+      testLessThan();
+
+      // System.out.println(aName);
+      // assert aName.toString().equals("John Paul Jones");
+
+      // System.out.println("All tests passed!");
+  }
+
+  public static void testAccessors() {
+
+      System.out.print("Testing Accessor methods...");
+
+      assert temp1a.getMyDegree() == 11;
+      assert temp1b.getMyDegree() == 22;
+      assert temp1c.getMyDegree() == 33;
+      assert temp1d.getMyDegree() == -11.12;
+      assert temp1e.getMyDegree() == -22.23;
+      assert temp1f.getMyDegree() == 33.34;
+      System.out.print("getMyDegree() passed, ");
+
+      assert temp1a.getMyScale() == 'F';
+      assert temp1b.getMyScale() == 'C';
+      assert temp1c.getMyScale() == 'K';
+      assert temp1d.getMyScale() == 'f';
+      assert temp1e.getMyScale() == 'c';
+      assert temp1f.getMyScale() == 'k';
+      System.out.print("getMyScale() passed...");
+
+      System.out.println("Accessors passed!");
+  }
+
+  public static void testConversions() {
+      System.out.print("Testing Conversion methods...");
+
+      assert temp1a.getInF().getMyScale() == 'F';
+      assert temp1a.getInF().getMyDegree() == 11;
+
+      assert temp1b.getInF().getMyScale() == 'F';
+      System.out.print("\n\ttemp1b degree F: " + temp1b.getInF().getMyDegree());
+
+      assert temp1c.getInF().getMyScale() == 'F';
+      System.out.print("\n\ttemp1c degree F: " + temp1c.getInF().getMyDegree());
+      System.out.print("...end of getInF()");
+
+
+
+      assert temp1a.getInC().getMyScale() == 'C';
+      System.out.print("\n\ttemp1a degree C: " + temp1a.getInC().getMyDegree());
+
+      assert temp1b.getInC().getMyScale() == 'C';
+      assert temp1b.getInC().getMyDegree() == 22;
+
+      assert temp1c.getInC().getMyScale() == 'C';
+      System.out.print("\n\ttemp1c degree C: " + temp1c.getInC().getMyDegree());
+      System.out.print("...end of getInC()");
+
+
+
+      assert temp1a.getInK().getMyScale() == 'K'; //WHY FAIL???
+      System.out.print("\n\ttemp1a degree K: " + temp1a.getInK().getMyDegree());
+
+      assert temp1b.getInK().getMyScale() == 'K'; //WHY FAIL???
+      System.out.print("\n\ttemp1b degree K: " + temp1b.getInK().getMyDegree());
+
+      assert temp1c.getInK().getMyScale() == 'K';
+      assert temp1c.getInK().getMyDegree() == 33;
+      System.out.print("...end of getInK()");
+
+      System.out.println("");
+      System.out.println("Conversions passed!");
+  }
+
+  public static void testReadInput() {
+      System.out.print("Testing Read method...");
+
+      temp1a.readTemp();
+      System.out.print("\n\ttemp1a degree: " + temp1a.getMyDegree());
+      System.out.print("\n\ttemp1a scale: " + temp1a.getMyScale());
+      System.out.println("");
+
+      System.out.println("Read passed!");   
+  }
+
+  public static void testDisplayTemp() {
+      System.out.print("Testing Display method...");
+
+      temp1a.displayTemp();
+      temp1b.displayTemp();
+      temp1c.displayTemp();
+      System.out.println("");
+
+      System.out.println("Display passed!");   
+  }
+
+  public static void testRaise() {
+      System.out.print("Testing Raise method...");
+
+      temp1a.raise(11).displayTemp();
+      temp1b.raise(11).displayTemp();
+      temp1c.raise(11).displayTemp();
+      System.out.println("");
+
+      System.out.println("Raise passed!");   
+  }
+
+  public static void testLower() {
+      System.out.print("Testing Lower method...");
+
+      temp1a.lower(11).displayTemp();
+      temp1b.lower(11).displayTemp();
+      temp1c.lower(11).displayTemp();
+      temp1a.lower(-1).displayTemp();
+      System.out.println("");
+
+      System.out.println("Lower passed!");   
+  }
+
+  public static void testEquals() {
+  	  System.out.print("Testing Equals method...");
+
+      assert temp1a.equals(temp1b) == false;
+      assert temp1b.equals(temp1c) == false;
+      assert temp1b.equals(temp1i) == true;
+      assert temp1b.equals(temp1j) == false;
+      assert temp1g.equals(temp1h) == true;
+      
+      System.out.println("Equals passed!");  
+  }
+
+  public static void testLessThan() {
+  	  System.out.print("Testing LessThan method...");
+
+      assert temp1a.lessThan(temp1b) == true;
+      assert temp1b.lessThan(temp1c) == false;
+
+      System.out.println("LessThan passed!");  
+  }
+}
+
+
+ajs244@maroon12:~/cs214/projects/proj08/java$ javac -deprecation TempDriver
+error: Class names, 'TempDriver', are only accepted if annotation processing is explicitly requested
+1 error
+ajs244@maroon12:~/cs214/projects/proj08/java$ javac -deprecation TempDriver.java
+ajs244@maroon12:~/cs214/projects/proj08/java$ java TempDriver
+
+
+baseTemp (Enter the temperature in the format --- degrees, scale): 0 F
+
+limitTemp (Enter the temperature in the format --- degrees, scale): 100 C
+
+stepValue: 2.5
+
+	Fahrenheit		Celsius			Kelvin
+
+	0.00000 F		-17.77778 C		255.37222 K	
+	2.50000 F		-16.38889 C		256.76111 K	
+	5.00000 F		-15.00000 C		258.15000 K	
+	7.50000 F		-13.61111 C		259.53889 K	
+	10.00000 F		-12.22222 C		260.92778 K	
+	12.50000 F		-10.83333 C		262.31667 K	
+	15.00000 F		-9.44444 C		263.70556 K	
+	17.50000 F		-8.05556 C		265.09444 K	
+	20.00000 F		-6.66667 C		266.48333 K	
+	22.50000 F		-5.27778 C		267.87222 K	
+	25.00000 F		-3.88889 C		269.26111 K	
+	27.50000 F		-2.50000 C		270.65000 K	
+	30.00000 F		-1.11111 C		272.03889 K	
+	32.50000 F		0.27778 C		273.42778 K	
+	35.00000 F		1.66667 C		274.81667 K	
+	37.50000 F		3.05556 C		276.20556 K	
+	40.00000 F		4.44444 C		277.59444 K	
+	42.50000 F		5.83333 C		278.98333 K	
+	45.00000 F		7.22222 C		280.37222 K	
+	47.50000 F		8.61111 C		281.76111 K	
+	50.00000 F		10.00000 C		283.15000 K	
+	52.50000 F		11.38889 C		284.53889 K	
+	55.00000 F		12.77778 C		285.92778 K	
+	57.50000 F		14.16667 C		287.31667 K	
+	60.00000 F		15.55556 C		288.70556 K	
+	62.50000 F		16.94444 C		290.09444 K	
+	65.00000 F		18.33333 C		291.48333 K	
+	67.50000 F		19.72222 C		292.87222 K	
+	70.00000 F		21.11111 C		294.26111 K	
+	72.50000 F		22.50000 C		295.65000 K	
+	75.00000 F		23.88889 C		297.03889 K	
+	77.50000 F		25.27778 C		298.42778 K	
+	80.00000 F		26.66667 C		299.81667 K	
+	82.50000 F		28.05556 C		301.20556 K	
+	85.00000 F		29.44444 C		302.59444 K	
+	87.50000 F		30.83333 C		303.98333 K	
+	90.00000 F		32.22222 C		305.37222 K	
+	92.50000 F		33.61111 C		306.76111 K	
+	95.00000 F		35.00000 C		308.15000 K	
+	97.50000 F		36.38889 C		309.53889 K	
+	100.00000 F		37.77778 C		310.92778 K	
+	102.50000 F		39.16667 C		312.31667 K	
+	105.00000 F		40.55556 C		313.70556 K	
+	107.50000 F		41.94444 C		315.09444 K	
+	110.00000 F		43.33333 C		316.48333 K	
+	112.50000 F		44.72222 C		317.87222 K	
+	115.00000 F		46.11111 C		319.26111 K	
+	117.50000 F		47.50000 C		320.65000 K	
+	120.00000 F		48.88889 C		322.03889 K	
+	122.50000 F		50.27778 C		323.42778 K	
+	125.00000 F		51.66667 C		324.81667 K	
+	127.50000 F		53.05556 C		326.20556 K	
+	130.00000 F		54.44444 C		327.59444 K	
+	132.50000 F		55.83333 C		328.98333 K	
+	135.00000 F		57.22222 C		330.37222 K	
+	137.50000 F		58.61111 C		331.76111 K	
+	140.00000 F		60.00000 C		333.15000 K	
+	142.50000 F		61.38889 C		334.53889 K	
+	145.00000 F		62.77778 C		335.92778 K	
+	147.50000 F		64.16667 C		337.31667 K	
+	150.00000 F		65.55556 C		338.70556 K	
+	152.50000 F		66.94444 C		340.09444 K	
+	155.00000 F		68.33333 C		341.48333 K	
+	157.50000 F		69.72222 C		342.87222 K	
+	160.00000 F		71.11111 C		344.26111 K	
+	162.50000 F		72.50000 C		345.65000 K	
+	165.00000 F		73.88889 C		347.03889 K	
+	167.50000 F		75.27778 C		348.42778 K	
+	170.00000 F		76.66667 C		349.81667 K	
+	172.50000 F		78.05556 C		351.20556 K	
+	175.00000 F		79.44444 C		352.59444 K	
+	177.50000 F		80.83333 C		353.98333 K	
+	180.00000 F		82.22222 C		355.37222 K	
+	182.50000 F		83.61111 C		356.76111 K	
+	185.00000 F		85.00000 C		358.15000 K	
+	187.50000 F		86.38889 C		359.53889 K	
+	190.00000 F		87.77778 C		360.92778 K	
+	192.50000 F		89.16667 C		362.31667 K	
+	195.00000 F		90.55556 C		363.70556 K	
+	197.50000 F		91.94444 C		365.09444 K	
+	200.00000 F		93.33333 C		366.48333 K	
+	202.50000 F		94.72222 C		367.87222 K	
+	205.00000 F		96.11111 C		369.26111 K	
+	207.50000 F		97.50000 C		370.65000 K	
+	210.00000 F		98.88889 C		372.03889 K	
+
+Type 'No' to exit, anything else to continue: Yes
+
+
+baseTemp (Enter the temperature in the format --- degrees, scale): 0 K
+
+limitTemp (Enter the temperature in the format --- degrees, scale): 212 F
+
+stepValue: 20.0
+
+	Fahrenheit		Celsius			Kelvin
+
+	-459.67000 F		-273.15000 C		0.00000 K	
+	-423.67000 F		-253.15000 C		20.00000 K	
+	-387.67000 F		-233.15000 C		40.00000 K	
+	-351.67000 F		-213.15000 C		60.00000 K	
+	-315.67000 F		-193.15000 C		80.00000 K	
+	-279.67000 F		-173.15000 C		100.00000 K	
+	-243.67000 F		-153.15000 C		120.00000 K	
+	-207.67000 F		-133.15000 C		140.00000 K	
+	-171.67000 F		-113.15000 C		160.00000 K	
+	-135.67000 F		-93.15000 C		180.00000 K	
+	-99.67000 F		-73.15000 C		200.00000 K	
+	-63.67000 F		-53.15000 C		220.00000 K	
+	-27.67000 F		-33.15000 C		240.00000 K	
+	8.33000 F		-13.15000 C		260.00000 K	
+	44.33000 F		6.85000 C		280.00000 K	
+	80.33000 F		26.85000 C		300.00000 K	
+	116.33000 F		46.85000 C		320.00000 K	
+	152.33000 F		66.85000 C		340.00000 K	
+	188.33000 F		86.85000 C		360.00000 K	
+
+Type 'No' to exit, anything else to continue: No
+ajs244@maroon12:~/cs214/projects/proj08/java$ exit
+
+Script done on Fri 12 Apr 2019 01:04:05 AM EDT
+Script started on Fri 12 Apr 2019 01:00:29 AM EDT
+ajs244@maroon12:~/cs214/projects/proj08/ada$ cat *.ads *.adb
+-- Temperature.ads declares the Temperature type and its operations.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Advait Scaria
+-- Date: 04/10/2019
+--------------------------------------------------------------
+
+package Temp_Package is
+
+  -------------- PUBLIC SECTION --------------
+
+  type Temperature is private; 
+
+  ----------------------------------------------
+  -- isValid() checks whether a Temperature type is valid          
+  -- Receive: degrees, myDegree Float;
+  --          scale, myScale Character.         
+  -- Return: true if Temperature type is valid, false otherwise.     
+  ----------------------------------------------
+
+  function isValid(degrees: in Float; scale: in Character) return Boolean;
+
+  ----------------------------------------------
+  -- Init initializes a Temperature variable          
+  -- Receive: degrees, myDegree Float;
+  --          scale, myScale Character.         
+  -- Return: Temp, its fields set to degrees
+  --         and scale.     
+  ----------------------------------------------
+
+  procedure Init(Temp: out Temperature; degrees: in Float; scale: in Character);
+
+  ----------------------------------------------
+  -- getMyDegree retrieves Temperature.myDegree        
+  -- Receive: Temp, a Temperature.                      
+  -- PRE: Temp has been initialized.            
+  -- Return: Temp.myDegree.                     
+  ----------------------------------------------
+  function getMyDegree(Temp: in Temperature) return Float;
+
+  ----------------------------------------------
+  -- getMyScale retrieves Temperature.myScale 
+  -- Receive: Temp, a Temperature.        
+  -- PRE: Temp has been initialized.
+  -- Return: Temp.myScale. 
+  ----------------------------------------------
+  function getMyScale(Temp: in Temperature) return Character;
+
+  -------------------------------------------------------------
+  -- getInF gives a Temperature in equivalent degrees F scale -
+  -- PRE: Temperature object which this message is sent to has-
+  --      been initialized.                                   -
+  -- Receive: Temp, a Temperature.                            -
+  -- Return: a Temperature object in degrees F scale.         -
+  -------------------------------------------------------------
+  procedure getInF(temp1: in Temperature; temp2: out Temperature);
+
+  -------------------------------------------------------------
+  -- getInC gives a Temperature in equivalent degrees C scale -
+  -- PRE: Temperature object which this message is sent to has-
+  --      been initialized.                                   -
+  -- Receive: Temp, a Temperature.                            -
+  -- Return: a Temperature object in degrees C scale.         -
+  -------------------------------------------------------------
+  procedure getInC(temp1: in Temperature; temp2: out Temperature);
+
+  -------------------------------------------------------------
+  -- getInK gives a Temperature in equivalent degrees K scale -
+  -- PRE: Temperature object which this message is sent to has-
+  --      been initialized.                                   -
+  -- Receive: Temp, a Temperature.                            -
+  -- Return: a Temperature object in degrees K scale.         -
+  -------------------------------------------------------------
+  procedure getInK(temp1: in Temperature; temp2: out Temperature);
+
+  -------------------------------------------------------------
+  -- readTemp reads Temperature object values from input.     - 
+  -- PRE: Temp has been initialized.                          -
+  -- Receive: Temp, a Temperature.                            -
+  -------------------------------------------------------------
+  procedure readTemp(Temp: in out Temperature);
+
+  -------------------------------------------------------------
+  -- displayTemp outputs Temperature object values.           - 
+  -- PRE: Temp has been initialized.                          -
+  -- Receive: Temp, a Temperature.                            -
+  -- Output: Temp.myDegree & Temp.myScale output to console.  -
+  -------------------------------------------------------------
+  procedure displayTemp(Temp: in out Temperature);
+
+  -------------------------------------------------------------
+  -- raiseTemp raises myDegree by degrees amount.             - 
+  -- PRE: Temp has been initialized, degrees > 0.             -
+  -- Receive: Temp, a Temperature;                            -
+  --          degrees, a Float                                -
+  -- Return: Temperature object with raised myDegree.         -
+  -------------------------------------------------------------
+  procedure raiseTemp(temp1: in Temperature; degrees: in Float; temp2: out Temperature);
+
+  -------------------------------------------------------------
+  -- lower lowers myDegree by degrees amount.                 - 
+  -- PRE: Temp has been initialized, degrees > 0.             -
+  -- Receive: Temp, a Temperature;                            -
+  --          degrees, a Float                                -
+  -- Return: Temperature object with lowered myDegree.        -
+  -------------------------------------------------------------
+  procedure lower(temp1: in Temperature; degrees: in Float; temp2: out Temperature);
+
+  -------------------------------------------------------------
+  -- "=" compares the degrees of two Temperature objects      - 
+  -- PRE: both temp1 and temp2 have been initialized.         -
+  -- Receive: temp1, a Temperature;                           -
+  --          temp2, a Temperature.                           -
+  -- Return: true if they have equaivalent degrees, false     -
+  --         otherwise.                                       -
+  -------------------------------------------------------------
+  function equals(temp1, temp2: in Temperature) return Boolean;
+
+  -------------------------------------------------------------
+  -- "<" compares the degrees of two Temperature objects      - 
+  -- PRE: both temp1 and temp2 have been initialized.         -
+  -- Receive: temp1, a Temperature;                           -
+  --          temp2, a Temperature.                           -
+  -- Return: true if temp1 is less than temp2, false otherwise-
+  -------------------------------------------------------------
+  function lessThan(temp1, temp2: in Temperature) return Boolean;
+
+  -------------- PRIVATE SECTION --------------
+
+  private 
+
+  type Temperature is
+      record
+         myDegree : Float;
+         myScale : Character;
+      end record; 
+
+end Temp_Package;
+-- temp_driver.adb "test-drives" the Temperature type.
+--
+-- Begun by: Dr. Adams, CPSC 280, October 1999.
+-- Completed by: Advait Scaria
+-- Date: 04/10/2019
+----------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Float_Text_IO; use Ada.Float_Text_IO;
+with Temp_Package; use Temp_Package;
+
+procedure temp_driver is
+
+baseTemp : Temp_Package.Temperature;
+limitTemp : Temp_Package.Temperature;
+myTemp : Temp_Package.Temperature;
+stepValue : Float;
+input: String := "  ";
+
+begin
+  Until_Loop:
+  loop
+     Put_Line("");
+     Put ("baseTemp ");
+     readTemp(baseTemp);
+     Init(myTemp, getMyDegree(baseTemp), getMyScale(baseTemp));
+
+     Put ("limitTemp ");
+     readTemp(limitTemp);
+
+     Put ("stepValue: ");
+     Get(stepValue);
+
+     New_Line;
+     Put("         ");
+     Put("Fahrenheit");
+     Put("         ");
+     Put("Celsius");
+     Put("         ");
+     Put("Kelvin");
+     Put("         ");
+     New_Line;
+     New_Line;
+
+     while lessThan(baseTemp, limitTemp) loop
+      getInF(baseTemp, myTemp);
+      displayTemp(myTemp);
+      getInC(baseTemp, myTemp);
+      displayTemp(myTemp);
+      getInK(baseTemp, myTemp);
+      displayTemp(myTemp);
+      New_Line;
+      raiseTemp(baseTemp, stepValue, baseTemp);
+     end loop;
+
+     New_Line;
+     Put("Type 'No' to exit, any other two-lettered word to continue: ");
+     Get(input);
+     exit Until_Loop when input = "No"; 
+
+  end loop Until_Loop;
+
+end temp_driver;
+
+-- temp_package.adb defines operations for the Temperature type.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Advait Scaria
+-- Date: 04/10/2019
+---------------------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Float_Text_IO; use Ada.Float_Text_IO;
+
+package body Temp_Package is
+
+  ----------------------------------------------
+  -- isValid() checks whether a Temperature type is valid          
+  -- Receive: degrees, myDegree Float;
+  --          scale, myScale Character.         
+  -- Return: true if Temperature type is valid, false otherwise.     
+  ----------------------------------------------
+  function isValid(degrees: in Float; scale: in Character) return Boolean is
+  begin
+
+    if scale = 'F' or scale = 'f' then
+      if degrees < -459.67 then
+        Put ("Invalid Fahrenheit Degree");
+        return false;
+      else
+        return true;
+      end if;
+      elsif scale = 'C' or scale = 'c' then
+      if degrees < -273.15 then
+        Put ("Invalid Celsius Degree");
+        return false;
+      else
+        return true;
+      end if;
+      elsif scale = 'K' or scale = 'k' then
+      if degrees < 0.0 then
+        Put ("Invalid Kelvin Degree");
+        return false;
+      else
+        return true;
+      end if; 
+    else
+      Put ("Invalid Input");
+      return false;
+    end if;
+      
+  end isValid;
+
+  ----------------------------------------------
+  -- Init initializes a Temperature variable          
+  -- Receive: degrees, myDegree Float;
+  --          scale, myScale Character.         
+  -- Return: Temp, its fields set to degrees
+  --         and scale.     
+  ----------------------------------------------
+  procedure Init(Temp: out Temperature; degrees: in Float; scale: in Character) is
+  begin
+
+    if isValid(degrees, scale) then
+      Temp.myDegree := degrees;
+      Temp.myScale := scale;
+    end if;
+
+  end Init;
+
+  ----------------------------------------------
+  -- getMyDegree retrieves Temperature.myDegree        
+  -- Receive: Temp, a Temperature.                      
+  -- PRE: Temp has been initialized.            
+  -- Return: Temp.myDegree.                     
+  ----------------------------------------------
+  function getMyDegree(Temp: in Temperature) return Float is 
+  begin
+    return Temp.myDegree;
+  end getMyDegree;
+
+  ----------------------------------------------
+  -- getMyScale retrieves Temperature.myScale 
+  -- Receive: Temp, a Temperature.        
+  -- PRE: Temp has been initialized.
+  -- Return: Temp.myScale. 
+  ----------------------------------------------
+  function getMyScale(Temp: in Temperature) return Character is 
+  begin
+    return Temp.myScale;
+  end getMyScale;
+
+  -------------------------------------------------------------
+  -- getInF gives a Temperature in equivalent degrees F scale -
+  -- PRE: Temperature object which this message is sent to has-
+  --      been initialized.                                   -
+  -- Receive: Temp, a Temperature.                            -
+  -- Return: a Temperature object in degrees F scale.         -
+  -------------------------------------------------------------
+  procedure getInF(temp1: in Temperature; temp2: out Temperature) is
+  degreeF : Float := 0.0;
+  begin
+    if getMyScale(temp1) = 'F' or getMyScale(temp1) = 'f' then
+      Init(temp2, getMyDegree(temp1), 'F');
+    else
+      if getMyScale(temp1) = 'C' or getMyScale(temp1) = 'c' then
+        degreeF := ((9.0/5.0) * getMyDegree(temp1)) + 32.0;
+      else
+        degreeF := ((getMyDegree(temp1) - 273.15) * (9.0/5.0)) + 32.0;
+      end if;
+
+      Init(temp2, degreeF, 'F');
+    end if; 
+
+  end getInF;
+
+  -------------------------------------------------------------
+  -- getInC gives a Temperature in equivalent degrees C scale -
+  -- PRE: Temperature object which this message is sent to has-
+  --      been initialized.                                   -
+  -- Receive: Temp, a Temperature.                            -
+  -- Return: a Temperature object in degrees C scale.         -
+  -------------------------------------------------------------
+  procedure getInC(temp1: in Temperature; temp2: out Temperature) is
+  degreeC : Float := 0.0;
+  begin
+    if getMyScale(temp1) = 'C' or getMyScale(temp1) = 'c' then
+      Init(temp2, getMyDegree(temp1), 'C');
+    else
+      if getMyScale(temp1) = 'F' or getMyScale(temp1) = 'f' then
+        degreeC := (5.0/9.0) * (getMyDegree(temp1) - 32.0);
+      else
+        degreeC := getMyDegree(temp1) - 273.15;
+      end if;
+
+      Init(temp2, degreeC, 'C');
+    end if; 
+    
+  end getInC;
+
+  -------------------------------------------------------------
+  -- getInK gives a Temperature in equivalent degrees K scale -
+  -- PRE: Temperature object which this message is sent to has-
+  --      been initialized.                                   -
+  -- Receive: Temp, a Temperature.                            -
+  -- Return: a Temperature object in degrees K scale.         -
+  -------------------------------------------------------------
+  procedure getInK(temp1: in Temperature; temp2: out Temperature) is
+  degreeK : Float := 0.0;
+  begin
+    if getMyScale(temp1) = 'K' or getMyScale(temp1) = 'k' then
+      Init(temp2, getMyDegree(temp1), 'K');
+    else
+      if getMyScale(temp1) = 'F' or getMyScale(temp1) = 'f' then
+        degreeK := (5.0/9.0) * (getMyDegree(temp1) + 459.67);
+      else
+        degreeK := getMyDegree(temp1) + 273.15;
+      end if;
+
+      Init(temp2, degreeK, 'K');
+    end if; 
+    
+  end getInK;
+
+  -------------------------------------------------------------
+  -- readTemp reads Temperature object values from input.     - 
+  -- PRE: Temp has been initialized.                          -
+  -- Receive: Temp, a Temperature.                            -
+  -------------------------------------------------------------
+  procedure readTemp(Temp: in out Temperature) is
+  EMPTY_STRING : String := " ";
+  degree : Float;
+  scale : Character;
+  begin
+    Put ("(Enter the temperature in the format --- degrees, scale): ");
+    Get(degree);
+    Get(EMPTY_STRING);
+    Get(scale);
+    if isValid(degree, scale) then
+      Init(Temp, degree, scale);
+    end if;
+  end readTemp;
+
+  -------------------------------------------------------------
+  -- displayTemp outputs Temperature object values.           - 
+  -- PRE: Temp has been initialized.                          -
+  -- Receive: Temp, a Temperature.                            -
+  -- Output: Temp.myDegree & Temp.myScale output to console.  -
+  -------------------------------------------------------------
+  procedure displayTemp(Temp: in out Temperature) is
+  begin
+    Put (getMyDegree(Temp), 10, 5, 0);
+    Put (" ");
+    Put (getMyScale(Temp));
+  end displayTemp;
+
+  -------------------------------------------------------------
+  -- raiseTemp raises myDegree by degrees amount.             - 
+  -- PRE: Temp has been initialized, degrees > 0.             -
+  -- Receive: Temp, a Temperature;                            -
+  --          degrees, a Float                                -
+  -- Return: Temperature object with raised myDegree.         -
+  -------------------------------------------------------------
+  procedure raiseTemp(temp1: in Temperature; degrees: in Float; temp2: out Temperature) is
+  begin
+    if degrees > 0.0 then
+      Init(temp2, getMyDegree(temp1) + degrees, getMyScale(temp1));
+    else
+      Put_Line("Please enter a degree greater than 0 to raise the temperature by!");
+      Init(temp2, getMyDegree(temp1), getMyScale(temp1));
+    end if;
+  end raiseTemp;
+
+  -------------------------------------------------------------
+  -- lower lowers myDegree by degrees amount.                 - 
+  -- PRE: Temp has been initialized, degrees > 0.             -
+  -- Receive: Temp, a Temperature;                            -
+  --          degrees, a Float                                -
+  -- Return: Temperature object with lowered myDegree.        -
+  -------------------------------------------------------------
+  procedure lower(temp1: in Temperature; degrees: in Float; temp2: out Temperature) is
+  begin
+    if degrees > 0.0 then
+      if isValid(getMyDegree(temp1) - degrees, getMyScale(temp1)) then
+        Init(temp2, getMyDegree(temp1) - degrees, getMyScale(temp1));
+      else
+        Init(temp2, getMyDegree(temp1), getMyScale(temp1));
+      end if;
+    else
+      Put_Line("Please enter a degree greater than 0 to raise the temperature by!");
+      Init(temp2, getMyDegree(temp1), getMyScale(temp1));
+    end if;
+  end lower;
+
+  -------------------------------------------------------------
+  -- equals compares the degrees of two Temperature objects   - 
+  -- PRE: both temp1 and temp2 have been initialized.         -
+  -- Receive: temp1, a Temperature;                           -
+  --          temp2, a Temperature.                           -
+  -- Return: true if they have equaivalent degrees, false     -
+  --         otherwise.                                       -
+  -------------------------------------------------------------
+  function equals(temp1, temp2: in Temperature) return Boolean is
+  myTemp : Temperature;
+  begin
+    if getMyScale(temp1) = getMyScale(temp2) and getMyDegree(temp1) = getMyDegree(temp2) then
+      return true;
+    else
+      if getMyScale(temp1) = 'F' or getMyScale(temp1) = 'f' then
+        getInF(temp2, myTemp);
+        return getMyDegree(temp1) = getMyDegree(myTemp);
+      elsif getMyScale(temp1) = 'C' or getMyScale(temp1) = 'c' then
+        getInC(temp2, myTemp);
+        return getMyDegree(temp1) = getMyDegree(myTemp);
+      elsif getMyScale(temp1) = 'K' or getMyScale(temp1) = 'k' then
+        getInK(temp2, myTemp);
+        return getMyDegree(temp1) = getMyDegree(myTemp);
+      else
+        return false;
+      end if;
+    end if;
+  end equals;
+
+  -------------------------------------------------------------
+  -- lessThan compares the degrees of two Temperature objects - 
+  -- PRE: both temp1 and temp2 have been initialized.         -
+  -- Receive: temp1, a Temperature;                           -
+  --          temp2, a Temperature.                           -
+  -- Return: true if temp1 is less than temp2, false otherwise-
+  -------------------------------------------------------------
+  function lessThan(temp1, temp2: in Temperature) return Boolean is
+  myTemp : Temperature;
+  begin 
+    if getMyScale(temp1) = getMyScale(temp2) and getMyDegree(temp1) < getMyDegree(temp2) then
+      return true;
+    else
+      if getMyScale(temp1) = 'F' or getMyScale(temp1) = 'f' then
+        getInF(temp2, myTemp);
+        return getMyDegree(temp1) < getMyDegree(myTemp);
+      elsif getMyScale(temp1) = 'C' or getMyScale(temp1) = 'c' then
+        getInC(temp2, myTemp);
+        return getMyDegree(temp1) < getMyDegree(myTemp);
+      elsif getMyScale(temp1) = 'K' or getMyScale(temp1) = 'k' then
+        getInK(temp2, myTemp);
+        return getMyDegree(temp1) < getMyDegree(myTemp);
+      else
+        return false;
+      end if;
+    end if;
+  end lessThan;
+
+end Temp_Package;
+ajs244@maroon12:~/cs214/projects/proj08/ada$ gnatmakte  e temp_drier  ver.adb
+gnatmake: "temp_driver" up to date.
+ajs244@maroon12:~/cs214/projects/proj08/ada$ ./temp_driver
+
+baseTemp (Enter the temperature in the format --- degrees, scale): 0 F
+limitTemp (Enter the temperature in the format --- degrees, scale): 100 C
+stepValue: 2.5
+
+         Fahrenheit         Celsius         Kelvin         
+
+         0.00000 F       -17.77778 C       255.37224 K
+         2.50000 F       -16.38889 C       256.76114 K
+         5.00000 F       -15.00000 C       258.15002 K
+         7.50000 F       -13.61111 C       259.53891 K
+        10.00000 F       -12.22222 C       260.92780 K
+        12.50000 F       -10.83333 C       262.31668 K
+        15.00000 F        -9.44444 C       263.70557 K
+        17.50000 F        -8.05556 C       265.09445 K
+        20.00000 F        -6.66667 C       266.48337 K
+        22.50000 F        -5.27778 C       267.87225 K
+        25.00000 F        -3.88889 C       269.26114 K
+        27.50000 F        -2.50000 C       270.65002 K
+        30.00000 F        -1.11111 C       272.03891 K
+        32.50000 F         0.27778 C       273.42780 K
+        35.00000 F         1.66667 C       274.81668 K
+        37.50000 F         3.05556 C       276.20557 K
+        40.00000 F         4.44444 C       277.59445 K
+        42.50000 F         5.83333 C       278.98337 K
+        45.00000 F         7.22222 C       280.37225 K
+        47.50000 F         8.61111 C       281.76114 K
+        50.00000 F        10.00000 C       283.15002 K
+        52.50000 F        11.38889 C       284.53894 K
+        55.00000 F        12.77778 C       285.92783 K
+        57.50000 F        14.16667 C       287.31671 K
+        60.00000 F        15.55556 C       288.70560 K
+        62.50000 F        16.94444 C       290.09448 K
+        65.00000 F        18.33333 C       291.48337 K
+        67.50000 F        19.72222 C       292.87225 K
+        70.00000 F        21.11111 C       294.26114 K
+        72.50000 F        22.50000 C       295.65002 K
+        75.00000 F        23.88889 C       297.03894 K
+        77.50000 F        25.27778 C       298.42783 K
+        80.00000 F        26.66667 C       299.81671 K
+        82.50000 F        28.05556 C       301.20560 K
+        85.00000 F        29.44445 C       302.59448 K
+        87.50000 F        30.83333 C       303.98337 K
+        90.00000 F        32.22223 C       305.37225 K
+        92.50000 F        33.61111 C       306.76114 K
+        95.00000 F        35.00000 C       308.15002 K
+        97.50000 F        36.38889 C       309.53894 K
+       100.00000 F        37.77778 C       310.92783 K
+       102.50000 F        39.16667 C       312.31671 K
+       105.00000 F        40.55556 C       313.70560 K
+       107.50000 F        41.94445 C       315.09448 K
+       110.00000 F        43.33334 C       316.48337 K
+       112.50000 F        44.72223 C       317.87225 K
+       115.00000 F        46.11111 C       319.26114 K
+       117.50000 F        47.50000 C       320.65005 K
+       120.00000 F        48.88889 C       322.03894 K
+       122.50000 F        50.27778 C       323.42783 K
+       125.00000 F        51.66667 C       324.81671 K
+       127.50000 F        53.05556 C       326.20560 K
+       130.00000 F        54.44445 C       327.59448 K
+       132.50000 F        55.83334 C       328.98337 K
+       135.00000 F        57.22223 C       330.37225 K
+       137.50000 F        58.61111 C       331.76114 K
+       140.00000 F        60.00000 C       333.15005 K
+       142.50000 F        61.38889 C       334.53894 K
+       145.00000 F        62.77778 C       335.92783 K
+       147.50000 F        64.16667 C       337.31671 K
+       150.00000 F        65.55556 C       338.70560 K
+       152.50000 F        66.94445 C       340.09448 K
+       155.00000 F        68.33334 C       341.48337 K
+       157.50000 F        69.72223 C       342.87225 K
+       160.00000 F        71.11111 C       344.26114 K
+       162.50000 F        72.50000 C       345.65005 K
+       165.00000 F        73.88889 C       347.03894 K
+       167.50000 F        75.27778 C       348.42783 K
+       170.00000 F        76.66667 C       349.81671 K
+       172.50000 F        78.05556 C       351.20560 K
+       175.00000 F        79.44445 C       352.59448 K
+       177.50000 F        80.83334 C       353.98337 K
+       180.00000 F        82.22223 C       355.37225 K
+       182.50000 F        83.61111 C       356.76114 K
+       185.00000 F        85.00001 C       358.15005 K
+       187.50000 F        86.38889 C       359.53894 K
+       190.00000 F        87.77778 C       360.92783 K
+       192.50000 F        89.16667 C       362.31671 K
+       195.00000 F        90.55556 C       363.70560 K
+       197.50000 F        91.94445 C       365.09448 K
+       200.00000 F        93.33334 C       366.48337 K
+       202.50000 F        94.72223 C       367.87225 K
+       205.00000 F        96.11111 C       369.26114 K
+       207.50000 F        97.50001 C       370.65005 K
+       210.00000 F        98.88889 C       372.03894 K
+
+Type 'No' to exit, any other two-lettered word to continue: Ye
+
+baseTemp (Enter the temperature in the format --- degrees, scale): 0 K
+limitTemp (Enter the temperature in the format --- degrees, scale): 212 F
+stepValue: 20.0
+
+         Fahrenheit         Celsius         Kelvin         
+
+      -459.66998 F      -273.14999 C         0.00000 K
+      -423.66998 F      -253.14999 C        20.00000 K
+      -387.66998 F      -233.14999 C        40.00000 K
+      -351.66998 F      -213.14999 C        60.00000 K
+      -315.66998 F      -193.14999 C        80.00000 K
+      -279.66998 F      -173.14999 C       100.00000 K
+      -243.66998 F      -153.14999 C       120.00000 K
+      -207.66998 F      -133.14999 C       140.00000 K
+      -171.66998 F      -113.14999 C       160.00000 K
+      -135.66998 F       -93.14999 C       180.00000 K
+       -99.66998 F       -73.14999 C       200.00000 K
+       -63.66998 F       -53.14999 C       220.00000 K
+       -27.66999 F       -33.14999 C       240.00000 K
+         8.33001 F       -13.14999 C       260.00000 K
+        44.33001 F         6.85001 C       280.00000 K
+        80.33001 F        26.85001 C       300.00000 K
+       116.33001 F        46.85001 C       320.00000 K
+       152.33002 F        66.85001 C       340.00000 K
+       188.33000 F        86.85001 C       360.00000 K
+
+Type 'No' to exit, any other two-lettered word to continue: No
+
+ajs244@maroon12:~/cs214/projects/proj08/ada$ exit
+
+Script done on Fri 12 Apr 2019 01:02:04 AM EDT
+Script started on Fri 12 Apr 2019 01:07:44 AM EDT
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ cat src/temp_driver.clj
+;; temp_driver.clj tests a Clojure Temperature type,
+;;  stored in temperature.clj (in the src directory).
+;;
+;; Output: the results of testing the Temperature functions.
+;;
+;; Usage: clojure -m temp_driver
+;;
+;; Begun by: Prof. Adams, CS 214 at Calvin College.
+;; Completed by: Advait Scaria
+;; Date: 04/11/2019
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns temp_driver)
+
+;;(load "Name")
+(load-file "src/temperature.clj")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; A simple driver to test Temperature functions. 
+;; Output: the results of testing Temperature functions.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn -main []
+  (let
+    [
+    		baseTemp (readTemp)
+    		limitTemp (readTemp)
+    ]
+    (println "Enter stepValue: ")
+    (let [ stepValue (read) ]
+    		(newline) (println "      Fahrenheit          Celsius         Kelvin") (newline)
+		    (loop [i 0]
+		    		(when (or (lessThan (raise baseTemp i) limitTemp) 
+		    	          (equals (raise baseTemp i) limitTemp))
+		    				(print "     ")
+          (displayTemp (raise (getInF baseTemp) i))
+          (print "     ")
+          (displayTemp (raise (getInC baseTemp) i))
+          (print "     ")
+          (displayTemp (raise (getInK baseTemp) i))
+          (println)   
+		    			 (recur (+ i stepValue))
+		    		);closes when 
+		    ); closes loop
+		  ) 
+  )
+)
+
+
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ cat src/temperature.clj
+;; temperature.clj is a module for the 'Temperature' type-abstraction.
+;;
+;; Begun by: Prof. Adams, for CS 214 at Calvin College.
+;; Completed by: Advait Scaria
+;; Date: 04/11/2019
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require '[clojure.string :as str])
+;; Create a record/struct type named Temperature
+(defrecord Temperature [myDegree myScale])
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; isValid checks if a Temperature object is valid. 
+;; Receive: degree, a float;
+;; 									scale, a character.
+;; Return: true if Temperature type is valid, false otherwise.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn isValid [degree scale]
+		(cond
+				(= \F scale) (if (< degree -459.67) false true)
+				(= \f scale) (if (< degree -459.67) false true)
+				(= \C scale) (if (< degree -273.15) false true)
+				(= \c scale) (if (< degree -273.15) false true)
+				(= \K scale) (if (< degree 0.0) false true)
+				(= \k scale) (if (< degree 0.0) false true)
+				:else true
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; make-Temperature constructs a Temperature object from given 
+;; 																	degree and scale. 
+;; Receive: degree, a float;
+;; 									scale, a character.
+;; Return: the Temperature (degree scale). 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn make-Temperature [degree scale]
+  (if (isValid degree scale) 
+  		(->Temperature degree scale)
+  		(println "Invalid Input")
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getMyDegree extracts the degree of a Temperature object.
+;; Receive: aTemp, a Temperature.
+;; Return: myDegree of aTemp.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getMyDegree [^Temperature aTemp]
+  (:myDegree aTemp)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getMyScale extracts the scale of a Temperature object.
+;; Receive: aTemp, a Temperature.
+;; Return: myScale of aTemp.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getMyScale [^Temperature aTemp]
+  (:myScale aTemp)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getInF gives a Temperature in equivalent degrees F scale
+;; PRE: Temperature object which this message is sent to has
+;; 					been initialized.  
+;; Receive: aTemp, a Temperature.
+;; Return: a Temperature object in degrees F scale.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getInF [^Temperature aTemp]
+  (cond
+				(= \F (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \F)
+				(= \f (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \F)
+				(= \C (getMyScale aTemp)) (make-Temperature (+ (* (/ 9.0 5.0) (getMyDegree aTemp)) 32.0) \F)
+				(= \c (getMyScale aTemp)) (make-Temperature (+ (* (/ 9.0 5.0) (getMyDegree aTemp)) 32.0) \F)
+				(= \K (getMyScale aTemp)) (make-Temperature (+ (* (/ 9.0 5.0) (- (getMyDegree aTemp) 273.15)) 32.0) \F)
+				(= \k (getMyScale aTemp)) (make-Temperature (+ (* (/ 9.0 5.0) (- (getMyDegree aTemp) 273.15)) 32.0) \F)
+				:else false
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getInC gives a Temperature in equivalent degrees C scale
+;; PRE: Temperature object which this message is sent to has
+;; 					been initialized.  
+;; Receive: aTemp, a Temperature.
+;; Return: a Temperature object in degrees C scale.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getInC [^Temperature aTemp]
+  (cond
+				(= \F (getMyScale aTemp)) (make-Temperature (* (/ 5.0 9.0) (- (getMyDegree aTemp) 32.0)) \C)
+				(= \f (getMyScale aTemp)) (make-Temperature (* (/ 5.0 9.0) (- (getMyDegree aTemp) 32.0)) \C)
+				(= \C (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \C)
+				(= \c (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \C)
+				(= \K (getMyScale aTemp)) (make-Temperature (- (getMyDegree aTemp) 273.15) \C)
+				(= \k (getMyScale aTemp)) (make-Temperature (- (getMyDegree aTemp) 273.15) \C)
+				:else false
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; getInK gives a Temperature in equivalent degrees K scale
+;; PRE: Temperature object which this message is sent to has
+;; 					been initialized.  
+;; Receive: aTemp, a Temperature.
+;; Return: a Temperature object in degrees K scale.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn getInK [^Temperature aTemp]
+  (cond
+				(= \F (getMyScale aTemp)) (make-Temperature (* (/ 5.0 9.0) (+ (getMyDegree aTemp) 459.67)) \K)
+				(= \f (getMyScale aTemp)) (make-Temperature (* (/ 5.0 9.0) (+ (getMyDegree aTemp) 459.67)) \K)
+				(= \C (getMyScale aTemp)) (make-Temperature (+ (getMyDegree aTemp) 273.15) \K)
+				(= \c (getMyScale aTemp)) (make-Temperature (+ (getMyDegree aTemp) 273.15) \K)
+				(= \K (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \K)
+				(= \k (getMyScale aTemp)) (make-Temperature (getMyDegree aTemp) \K)
+				:else false
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; readTemp reads Temperature object values from input.
+;; Return: an initialized Temperature object based on input.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn readTemp []
+		(println "(Enter the temperature in the format --- degrees, scale): ")
+		(let 
+				[
+				  inputStr (read-line) 
+				  splitStr1 (str/split inputStr #" ")
+				  deg (Float/parseFloat (first splitStr1))
+				  sc (get (second splitStr1) 0)
+				]
+				(if (isValid deg sc) 
+  					(->Temperature deg sc)
+  					(println "Invalid Input")
+ 			)
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; displayTemp outputs Temperature object values.
+;; PRE: Temp has been initialized.
+;; Receive: Temp, a Temperature.
+;; Output: Temp.myDegree & Temp.myScale output to console.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn displayTemp [^Temperature aTemp]
+		(print (format "%.5f"(getMyDegree aTemp)) " " (getMyScale aTemp))
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; raise raises myDegree by degree amount.
+;; PRE: Temp has been initialized, degrees > 0.
+;; Receive: Temp, a Temperature;                            
+;;          degree, a Float
+;; Output: Temperature object with raised myDegree. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn raise [^Temperature aTemp degree]
+		(if (>= degree 0.0) (make-Temperature (+ (getMyDegree aTemp) degree) (getMyScale aTemp))
+						(print "Please enter a degree greater than 0 to raise the temperature by!")
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lower lowers myDegree by degree amount.
+;; PRE: Temp has been initialized, degrees > 0.
+;; Receive: Temp, a Temperature;                            
+;;          degree, a Float
+;; Output: Temperature object with lowered myDegree. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn lower [^Temperature aTemp degree]
+		(if (> degree 0.0) 
+						(if (isValid (- (getMyDegree aTemp) degree) (getMyScale aTemp)) 
+										(make-Temperature (- (getMyDegree aTemp) degree) (getMyScale aTemp))
+										(make-Temperature (getMyDegree aTemp) (getMyScale aTemp))
+						)
+				  (print "Please enter a degree greater than 0 to raise the temperature by!")
+		)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; equals compares the degrees of two Temperature objects.
+;; PRE: both temp1 and temp2 have been initialized.
+;; Receive: temp1, a Temperature;                           
+;;          temp2, a Temperature. 
+;; Return: true if they have equaivalent degrees, false
+;;         otherwise.  
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn equals [^Temperature temp1 ^Temperature temp2]
+		(if (= (getMyDegree (getInF temp1)) (getMyDegree (getInF temp2))) true false) 
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lessThan compares the degrees of two Temperature objects.
+;; PRE: both temp1 and temp2 have been initialized.
+;; Receive: temp1, a Temperature;                           
+;;          temp2, a Temperature. 
+;; Return: true if temp1 is less than temp2, false otherwise. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn lessThan [^Temperature temp1 ^Temperature temp2]
+		(if (< (getMyDegree (getInF temp1)) (getMyDegree (getInF temp2))) true false)
+)
+
+
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ clojure -m temp_driver
+(Enter the temperature in the format --- degrees, scale): 
+0 F
+(Enter the temperature in the format --- degrees, scale): 
+100 C
+Enter stepValue: 
+2.5
+
+      Fahrenheit          Celsius         Kelvin
+
+     0.00000   F     -17.77778   C     255.37222   K
+     2.50000   F     -15.27778   C     257.87222   K
+     5.00000   F     -12.77778   C     260.37222   K
+     7.50000   F     -10.27778   C     262.87222   K
+     10.00000   F     -7.77778   C     265.37222   K
+     12.50000   F     -5.27778   C     267.87222   K
+     15.00000   F     -2.77778   C     270.37222   K
+     17.50000   F     -0.27778   C     272.87222   K
+     20.00000   F     2.22222   C     275.37222   K
+     22.50000   F     4.72222   C     277.87222   K
+     25.00000   F     7.22222   C     280.37222   K
+     27.50000   F     9.72222   C     282.87222   K
+     30.00000   F     12.22222   C     285.37222   K
+     32.50000   F     14.72222   C     287.87222   K
+     35.00000   F     17.22222   C     290.37222   K
+     37.50000   F     19.72222   C     292.87222   K
+     40.00000   F     22.22222   C     295.37222   K
+     42.50000   F     24.72222   C     297.87222   K
+     45.00000   F     27.22222   C     300.37222   K
+     47.50000   F     29.72222   C     302.87222   K
+     50.00000   F     32.22222   C     305.37222   K
+     52.50000   F     34.72222   C     307.87222   K
+     55.00000   F     37.22222   C     310.37222   K
+     57.50000   F     39.72222   C     312.87222   K
+     60.00000   F     42.22222   C     315.37222   K
+     62.50000   F     44.72222   C     317.87222   K
+     65.00000   F     47.22222   C     320.37222   K
+     67.50000   F     49.72222   C     322.87222   K
+     70.00000   F     52.22222   C     325.37222   K
+     72.50000   F     54.72222   C     327.87222   K
+     75.00000   F     57.22222   C     330.37222   K
+     77.50000   F     59.72222   C     332.87222   K
+     80.00000   F     62.22222   C     335.37222   K
+     82.50000   F     64.72222   C     337.87222   K
+     85.00000   F     67.22222   C     340.37222   K
+     87.50000   F     69.72222   C     342.87222   K
+     90.00000   F     72.22222   C     345.37222   K
+     92.50000   F     74.72222   C     347.87222   K
+     95.00000   F     77.22222   C     350.37222   K
+     97.50000   F     79.72222   C     352.87222   K
+     100.00000   F     82.22222   C     355.37222   K
+     102.50000   F     84.72222   C     357.87222   K
+     105.00000   F     87.22222   C     360.37222   K
+     107.50000   F     89.72222   C     362.87222   K
+     110.00000   F     92.22222   C     365.37222   K
+     112.50000   F     94.72222   C     367.87222   K
+     115.00000   F     97.22222   C     370.37222   K
+     117.50000   F     99.72222   C     372.87222   K
+     120.00000   F     102.22222   C     375.37222   K
+     122.50000   F     104.72222   C     377.87222   K
+     125.00000   F     107.22222   C     380.37222   K
+     127.50000   F     109.72222   C     382.87222   K
+     130.00000   F     112.22222   C     385.37222   K
+     132.50000   F     114.72222   C     387.87222   K
+     135.00000   F     117.22222   C     390.37222   K
+     137.50000   F     119.72222   C     392.87222   K
+     140.00000   F     122.22222   C     395.37222   K
+     142.50000   F     124.72222   C     397.87222   K
+     145.00000   F     127.22222   C     400.37222   K
+     147.50000   F     129.72222   C     402.87222   K
+     150.00000   F     132.22222   C     405.37222   K
+     152.50000   F     134.72222   C     407.87222   K
+     155.00000   F     137.22222   C     410.37222   K
+     157.50000   F     139.72222   C     412.87222   K
+     160.00000   F     142.22222   C     415.37222   K
+     162.50000   F     144.72222   C     417.87222   K
+     165.00000   F     147.22222   C     420.37222   K
+     167.50000   F     149.72222   C     422.87222   K
+     170.00000   F     152.22222   C     425.37222   K
+     172.50000   F     154.72222   C     427.87222   K
+     175.00000   F     157.22222   C     430.37222   K
+     177.50000   F     159.72222   C     432.87222   K
+     180.00000   F     162.22222   C     435.37222   K
+     182.50000   F     164.72222   C     437.87222   K
+     185.00000   F     167.22222   C     440.37222   K
+     187.50000   F     169.72222   C     442.87222   K
+     190.00000   F     172.22222   C     445.37222   K
+     192.50000   F     174.72222   C     447.87222   K
+     195.00000   F     177.22222   C     450.37222   K
+     197.50000   F     179.72222   C     452.87222   K
+     200.00000   F     182.22222   C     455.37222   K
+     202.50000   F     184.72222   C     457.87222   K
+     205.00000   F     187.22222   C     460.37222   K
+     207.50000   F     189.72222   C     462.87222   K
+     210.00000   F     192.22222   C     465.37222   K
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ clojure -m temp_driver
+(Enter the temperature in the format --- degrees, scale): 
+0 K
+(Enter the temperature in the format --- degrees, scale): 
+212 F
+Enter stepValue: 
+20.0
+
+      Fahrenheit          Celsius         Kelvin
+
+     -459.67000   F     -273.15000   C     0.00000   K
+     -439.67000   F     -253.15000   C     20.00000   K
+     -419.67000   F     -233.15000   C     40.00000   K
+     -399.67000   F     -213.15000   C     60.00000   K
+     -379.67000   F     -193.15000   C     80.00000   K
+     -359.67000   F     -173.15000   C     100.00000   K
+     -339.67000   F     -153.15000   C     120.00000   K
+     -319.67000   F     -133.15000   C     140.00000   K
+     -299.67000   F     -113.15000   C     160.00000   K
+     -279.67000   F     -93.15000   C     180.00000   K
+     -259.67000   F     -73.15000   C     200.00000   K
+     -239.67000   F     -53.15000   C     220.00000   K
+     -219.67000   F     -33.15000   C     240.00000   K
+     -199.67000   F     -13.15000   C     260.00000   K
+     -179.67000   F     6.85000   C     280.00000   K
+     -159.67000   F     26.85000   C     300.00000   K
+     -139.67000   F     46.85000   C     320.00000   K
+     -119.67000   F     66.85000   C     340.00000   K
+     -99.67000   F     86.85000   C     360.00000   K
+ajs244@maroon12:~/cs214/projects/proj08/clojure$ exit
+
+Script done on Fri 12 Apr 2019 01:08:29 AM EDT
+Script started on Fri 12 Apr 2019 01:08:37 AM EDT
+ajs244@maroon12:~/cs214/projects/proj08/ruby$ cat *.rb
+# temp_driver.rb tests class Temperature and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by: Advait Scaria
+# Date: 04/11/2019
+####################################################
+
+require 'test/unit/assertions'
+include Test::Unit::Assertions
+
+require './temperature.rb'
+include Temperatures
+
+def temp_driver
+  
+  baseTemp = Temperature.new(0.0, 'K')
+  limitTemp = Temperature.new(0.0, 'K')
+
+  print "baseTemp "
+  baseTemp = baseTemp.readTemp()
+
+  print "limitTemp "
+  limitTemp = limitTemp.readTemp()
+
+  print "stepValue: "
+  stepValue = gets.chomp.to_f 
+
+  puts "\n"
+  puts "\t Fahrenheit\t\t Celsius\t\tKelvin"
+  puts "\n"
+  # tempStepValue = 0.0
+  while (baseTemp.lessThan(limitTemp) or baseTemp.equals(limitTemp) )
+    baseTemp.getInF().displayTemp()
+    baseTemp.getInC().displayTemp()
+    baseTemp.getInK().displayTemp()
+    puts "\n"
+    baseTemp = baseTemp.raiseTemp(stepValue)
+  end
+  puts "\n"
+end
+
+temp_driver
+
+# temperature.rb is a module that contains a temperature class and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by: Advait Scaria
+# Date: 04/05/2019
+####################################################
+
+module Temperatures
+  class Temperature
+    
+  ###################################################################
+  # isValid() checks whether a Temperature type is valid          
+  # Receive: degrees, myDegree Float;
+  #          scale, myScale Character.         
+  # Return: true if Temperature type is valid, false otherwise.     
+  ###################################################################
+    def isValid(degree, scale)
+      if scale == 'F' or scale == 'f'
+        if degree < -459.67
+          puts "Invalid Fahrenheit Degree"
+          return false
+        else
+          return true
+        end
+      elsif scale == 'C' or scale == 'c'
+        if degree < -273.15
+          puts "Invalid Celsius Degree"
+          return false
+        else
+          return true
+        end
+      elsif scale == 'K' or scale == 'k'
+        if degree < 0.0
+          puts "Invalid Kelvin Degree"
+          return false
+        else
+          return true
+        end
+      else
+        puts "Invalid Input"
+        return false 
+      end
+    end
+
+    ###################################################################
+    # Temperature accessors - retrieves Temperature.myDegree & Temperature.myScale
+    ###################################################################
+    attr_reader :myDegree, :myScale
+
+    ###################################################################
+    # isValid() checks whether a Temperature type is valid          
+    # Receive: degrees, myDegree Float;
+    #          scale, myScale Character.         
+    # Return: true if Temperature type is valid, false otherwise.     
+    ###################################################################
+    def initialize(degree, scale)
+      if isValid(degree, scale)
+        @myDegree, @myScale = degree, scale
+      end
+    end
+
+    ###################################################################
+    # getInF gives a Temperature in equivalent degrees F scale         
+    # PRE: Temperature object which this message is sent to has
+    #      been initialized.     
+    # Return: a Temperature object in degrees F scale.     
+    ###################################################################
+    def getInF()
+      if @myScale == 'F' or @myScale == 'f'
+        return self
+      else
+        degreeF = 0.0
+        if @myScale == 'C' or @myScale == 'c'
+          degreeF = ((9.0/5.0) * @myDegree) + 32.0
+        else
+          degreeF = (@myDegree - 273.15) * (9.0/5.0) + 32.0
+        end
+        myTemp = Temperature.new(degreeF, 'F')
+        return myTemp
+      end
+    end
+
+    ###################################################################
+    # getInC gives a Temperature in equivalent degrees C scale         
+    # PRE: Temperature object which this message is sent to has
+    #      been initialized.     
+    # Return: a Temperature object in degrees C scale.     
+    ###################################################################
+    def getInC()
+      if @myScale == 'C' or @myScale == 'c'
+        return self
+      else
+        degreeC = 0.0
+        if @myScale == 'F' or @myScale == 'f'
+          degreeC = (5.0/9.0) * (@myDegree - 32.0)
+        else
+          degreeC = @myDegree - 273.15;
+        end
+        myTemp = Temperature.new(degreeC, 'C')
+        return myTemp
+      end
+    end
+
+    ###################################################################
+    # getInK gives a Temperature in equivalent degrees K scale         
+    # PRE: Temperature object which this message is sent to has
+    #      been initialized.     
+    # Return: a Temperature object in degrees K scale.     
+    ###################################################################
+    def getInK()
+      if @myScale == 'K' or @myScale == 'k'
+        return self
+      else
+        degreeK = 0.0
+        if @myScale == 'F' or @myScale == 'f'
+          degreeK = (5.0/9.0) * (@myDegree + 459.67);
+        else
+          degreeK = @myDegree + 273.15;
+        end
+        myTemp = Temperature.new(degreeK, 'K')
+        return myTemp
+      end
+    end
+
+    ###################################################################
+    # readTemp reads Temperature object values from input.          
+    # PRE: Temp has been initialized.
+    # POST: my Temperature object changed with input values if valid.     
+    ###################################################################
+    def readTemp()
+       print "(Enter the temperature in the format --- degrees, scale): "
+       inputStr = gets.split
+       degree = inputStr[0].to_f
+       scale = inputStr[1].to_s
+
+       return Temperature.new(degree, scale)
+    end
+
+    ###################################################################
+    # displayTemp() outputs Temperature object values.          
+    # PRE: Temp has been initialized.        
+    # Output: Temp.myDegree & Temp.myScale output to console.       
+    ###################################################################
+    def displayTemp()
+       print "\t" + '%.5f' % @myDegree + " " + @myScale + "\t"
+    end
+
+    ###################################################################
+    # raiseTemp raises myDegree by degrees amount.      
+    # PRE: Temp has been initialized, degrees > 0.          
+    # Returns: self or newTemp, a myScale scale Temperature object with
+    #          myDegree = myDegree + degrees.       
+    ###################################################################
+    def raiseTemp(degrees)
+      if degrees >= 0.0
+        return Temperature.new(@myDegree + degrees, @myScale)
+        
+      else
+        puts "Please enter a degree greater than 0 to raise the temperature by!"
+        return self
+      end
+    end
+
+    ###################################################################
+    # lower lowers myDegree by degrees amount.      
+    # PRE: Temp has been initialized, degrees > 0.          
+    # Returns: self or newTemp, a myScale scale Temperature object with
+    #          myDegree = myDegree + degrees.       
+    ###################################################################
+    def lower(degrees)
+      if degrees >= 0.0
+        if isValid(@myDegree - degrees, @myScale)
+          newTemp = Temperature.new(@myDegree - degrees, @myScale)
+          return newTemp
+        else
+          return self
+        end
+      else
+        puts "Please enter a degree greater than 0 to raise the temperature by!"
+        return self
+      end
+    end
+
+    ###################################################################
+    # equals compares the degrees of two Temperature objects.      
+    # PRE: Temp has been initialized, degrees > 0.          
+    # Returns: self or newTemp, a myScale scale Temperature object with
+    #          myDegree = myDegree + degrees.       
+    ###################################################################
+    def equals(aTemp)
+      temp1 = self.getInF()
+      temp2 = aTemp.getInF()
+      return temp1.myDegree == temp2.myDegree
+    end
+
+    ###################################################################
+    # lessThan compares the degrees of two Temperature objects    
+    # PRE: Temp has been initialized, degrees > 0.          
+    # Returns: true if temp1 is less than temp2, false otherwise.      
+    ###################################################################
+    def lessThan(aTemp)
+      temp1 = self.getInF()
+      temp2 = aTemp.getInF()
+      return temp1.myDegree < temp2.myDegree
+    end
+
+  end
+end
+ajs244@maroon12:~/cs214/projects/proj08/ruby$ ruby temp_driver.rb
+baseTemp (Enter the temperature in the format --- degrees, scale): 0 F
+limitTemp (Enter the temperature in the format --- degrees, scale): 100 C
+stepValue: 2.5
+
+	 Fahrenheit		 Celsius		Kelvin
+
+	0.00000 F		-17.77778 C		255.37222 K	
+	2.50000 F		-16.38889 C		256.76111 K	
+	5.00000 F		-15.00000 C		258.15000 K	
+	7.50000 F		-13.61111 C		259.53889 K	
+	10.00000 F		-12.22222 C		260.92778 K	
+	12.50000 F		-10.83333 C		262.31667 K	
+	15.00000 F		-9.44444 C		263.70556 K	
+	17.50000 F		-8.05556 C		265.09444 K	
+	20.00000 F		-6.66667 C		266.48333 K	
+	22.50000 F		-5.27778 C		267.87222 K	
+	25.00000 F		-3.88889 C		269.26111 K	
+	27.50000 F		-2.50000 C		270.65000 K	
+	30.00000 F		-1.11111 C		272.03889 K	
+	32.50000 F		0.27778 C		273.42778 K	
+	35.00000 F		1.66667 C		274.81667 K	
+	37.50000 F		3.05556 C		276.20556 K	
+	40.00000 F		4.44444 C		277.59444 K	
+	42.50000 F		5.83333 C		278.98333 K	
+	45.00000 F		7.22222 C		280.37222 K	
+	47.50000 F		8.61111 C		281.76111 K	
+	50.00000 F		10.00000 C		283.15000 K	
+	52.50000 F		11.38889 C		284.53889 K	
+	55.00000 F		12.77778 C		285.92778 K	
+	57.50000 F		14.16667 C		287.31667 K	
+	60.00000 F		15.55556 C		288.70556 K	
+	62.50000 F		16.94444 C		290.09444 K	
+	65.00000 F		18.33333 C		291.48333 K	
+	67.50000 F		19.72222 C		292.87222 K	
+	70.00000 F		21.11111 C		294.26111 K	
+	72.50000 F		22.50000 C		295.65000 K	
+	75.00000 F		23.88889 C		297.03889 K	
+	77.50000 F		25.27778 C		298.42778 K	
+	80.00000 F		26.66667 C		299.81667 K	
+	82.50000 F		28.05556 C		301.20556 K	
+	85.00000 F		29.44444 C		302.59444 K	
+	87.50000 F		30.83333 C		303.98333 K	
+	90.00000 F		32.22222 C		305.37222 K	
+	92.50000 F		33.61111 C		306.76111 K	
+	95.00000 F		35.00000 C		308.15000 K	
+	97.50000 F		36.38889 C		309.53889 K	
+	100.00000 F		37.77778 C		310.92778 K	
+	102.50000 F		39.16667 C		312.31667 K	
+	105.00000 F		40.55556 C		313.70556 K	
+	107.50000 F		41.94444 C		315.09444 K	
+	110.00000 F		43.33333 C		316.48333 K	
+	112.50000 F		44.72222 C		317.87222 K	
+	115.00000 F		46.11111 C		319.26111 K	
+	117.50000 F		47.50000 C		320.65000 K	
+	120.00000 F		48.88889 C		322.03889 K	
+	122.50000 F		50.27778 C		323.42778 K	
+	125.00000 F		51.66667 C		324.81667 K	
+	127.50000 F		53.05556 C		326.20556 K	
+	130.00000 F		54.44444 C		327.59444 K	
+	132.50000 F		55.83333 C		328.98333 K	
+	135.00000 F		57.22222 C		330.37222 K	
+	137.50000 F		58.61111 C		331.76111 K	
+	140.00000 F		60.00000 C		333.15000 K	
+	142.50000 F		61.38889 C		334.53889 K	
+	145.00000 F		62.77778 C		335.92778 K	
+	147.50000 F		64.16667 C		337.31667 K	
+	150.00000 F		65.55556 C		338.70556 K	
+	152.50000 F		66.94444 C		340.09444 K	
+	155.00000 F		68.33333 C		341.48333 K	
+	157.50000 F		69.72222 C		342.87222 K	
+	160.00000 F		71.11111 C		344.26111 K	
+	162.50000 F		72.50000 C		345.65000 K	
+	165.00000 F		73.88889 C		347.03889 K	
+	167.50000 F		75.27778 C		348.42778 K	
+	170.00000 F		76.66667 C		349.81667 K	
+	172.50000 F		78.05556 C		351.20556 K	
+	175.00000 F		79.44444 C		352.59444 K	
+	177.50000 F		80.83333 C		353.98333 K	
+	180.00000 F		82.22222 C		355.37222 K	
+	182.50000 F		83.61111 C		356.76111 K	
+	185.00000 F		85.00000 C		358.15000 K	
+	187.50000 F		86.38889 C		359.53889 K	
+	190.00000 F		87.77778 C		360.92778 K	
+	192.50000 F		89.16667 C		362.31667 K	
+	195.00000 F		90.55556 C		363.70556 K	
+	197.50000 F		91.94444 C		365.09444 K	
+	200.00000 F		93.33333 C		366.48333 K	
+	202.50000 F		94.72222 C		367.87222 K	
+	205.00000 F		96.11111 C		369.26111 K	
+	207.50000 F		97.50000 C		370.65000 K	
+	210.00000 F		98.88889 C		372.03889 K	
+
+ajs244@maroon12:~/cs214/projects/proj08/ruby$ ruby temp_driver.rb
+baseTemp (Enter the temperature in the format --- degrees, scale): 0 K
+limitTemp (Enter the temperature in the format --- degrees, scale): 212 F
+stepValue: 20.0
+
+	 Fahrenheit		 Celsius		Kelvin
+
+	-459.67000 F		-273.15000 C		0.00000 K	
+	-423.67000 F		-253.15000 C		20.00000 K	
+	-387.67000 F		-233.15000 C		40.00000 K	
+	-351.67000 F		-213.15000 C		60.00000 K	
+	-315.67000 F		-193.15000 C		80.00000 K	
+	-279.67000 F		-173.15000 C		100.00000 K	
+	-243.67000 F		-153.15000 C		120.00000 K	
+	-207.67000 F		-133.15000 C		140.00000 K	
+	-171.67000 F		-113.15000 C		160.00000 K	
+	-135.67000 F		-93.15000 C		180.00000 K	
+	-99.67000 F		-73.15000 C		200.00000 K	
+	-63.67000 F		-53.15000 C		220.00000 K	
+	-27.67000 F		-33.15000 C		240.00000 K	
+	8.33000 F		-13.15000 C		260.00000 K	
+	44.33000 F		6.85000 C		280.00000 K	
+	80.33000 F		26.85000 C		300.00000 K	
+	116.33000 F		46.85000 C		320.00000 K	
+	152.33000 F		66.85000 C		340.00000 K	
+	188.33000 F		86.85000 C		360.00000 K	
+
+ajs244@maroon12:~/cs214/projects/proj08/ruby$ exit
+
+Script done on Fri 12 Apr 2019 01:09:27 AM EDT

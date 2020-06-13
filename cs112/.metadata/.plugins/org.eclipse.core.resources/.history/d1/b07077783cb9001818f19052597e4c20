@@ -1,0 +1,125 @@
+/* Application.cpp defines the Application test-methods.
+    * Student Name: Advait Scaria
+    * Date: 09/15/2018
+    * Begun by: Joel Adams, for CS 112 at Calvin College.
+    */
+
+#include "Application.h"
+#include "PlayList.h"
+#include "Song.h"
+#include <iostream>
+#include <ostream>
+#include <fstream>
+#include <cassert>
+#include <string>
+using namespace std;
+
+Application::Application() {
+	// TODO Auto-generated constructor stub
+
+}
+
+void Application::run() {
+	// NEED TO LOOP THIS INTERFACE
+	// NEED TO DOCUMENT CODE -- IF STATEMENTS AND LOOP LOGIC (ONCE THAT IS DONE)
+
+	PlayList pList("testSongs.txt");
+	int input;
+	do {
+		cout << "\n Welcome to the PlayList Manager! \n"
+				<< " Please enter: \n "
+				<< " 	1 - to search the playlist for songs by a given artist \n"
+				<< " 	2 - to search the playlist for songs from a given year \n"
+				<< " 	3 - to search the playlist for songs with a given phrase in their title \n"
+				<< " 	4 - to add a new song to the playlist \n"
+				<< " 	5 - to remove a song from the playlist \n"
+				<< " 	6 - to save the playlist to the text file \n"
+				<< " 	0 - to quit \n" << " --->\t";
+		cin >> input;
+		if (input == 0) {
+			cout << "\n PlayList Manager Closed";
+		}
+
+		if (input == 1) {
+			string artist;
+			cout << "\n Enter the name of an artist: ";
+			cin >> artist;
+			vector<Song> searchResult = pList.searchByArtist(artist);
+			cout << "\n Songs by " << artist << ": \n\t ";
+			for (unsigned i = 0; i < searchResult.size(); i++) {
+				cout << searchResult[i].getTitle() << "\n\t "
+						<< searchResult[i].getArtist() << "\n\t "
+						<< searchResult[i].getYear() << "\n\t " << "\n\t ";
+			}
+		}
+
+		if (input == 2) {
+			unsigned year;
+			cout << "\n Enter an year: ";
+			cin >> year;
+			vector<Song> searchResult = pList.searchByYear(year);
+			cout << "\n Songs in " << year << ": \n\t ";
+			for (unsigned i = 0; i < searchResult.size(); i++) {
+				cout << searchResult[i].getTitle() << "\n\t "
+						<< searchResult[i].getArtist() << "\n\t "
+						<< searchResult[i].getYear() << "\n\t " << "\n\t ";
+			}
+		}
+
+		if (input == 3) {
+			string phrase;
+			cout << "\n Enter a song title or phrase: ";
+			cin >> phrase;
+			vector<Song> searchResult = pList.searchByTitlePhrase(phrase);
+			cout << "\n Songs with phrase -- " << phrase << ": \n\t ";
+			for (unsigned i = 0; i < searchResult.size(); i++) {
+				cout << searchResult[i].getTitle() << "\n\t "
+						<< searchResult[i].getArtist() << "\n\t "
+						<< searchResult[i].getYear() << "\n\t " << "\n\t ";
+			}
+		}
+
+		if (input == 4) {
+			string title;
+			string artist;
+			unsigned year;
+			cout << "\n Enter the song's title: ";
+			cin >> title;
+			cout << "\n Enter the song's artist: ";
+			cin >> artist;
+			cout << "\n Enter the song's year of release: ";
+			cin >> year;
+			Song newSong(title, artist, year);
+			pList.addSong(newSong);
+			cout << "\n Your song, " << title << ", " << year << " by "
+					<< artist << " has been added to the playlist!";
+		}
+
+		if (input == 5) {
+			string title;
+			string artist;
+			unsigned year;
+			cout << "\n Enter the title of the song  you want to remove: ";
+			cin >> title;
+			cout << "\n Enter the artist of the song you want to remove: ";
+			cin >> artist;
+			cout << "\n Enter the year of the song you want to remove: ";
+			cin >> year;
+			Song aSong(title, artist, year);
+			pList.removeSong(aSong);
+			cout << "\n The song, " << title << ", " << year << " by " << artist
+					<< " has been removed from the playlist!";
+		}
+
+		if (input == 6) {
+			pList.save();
+			cout << "Playlist Saved!";
+		}
+
+	}
+	while (input != 0);
+
+
+}
+
+

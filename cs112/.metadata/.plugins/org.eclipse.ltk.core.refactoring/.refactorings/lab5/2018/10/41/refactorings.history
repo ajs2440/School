@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Create method makCopyO" description="Extract Method Refactoring" fileName="file:/home/ajs244/cs112/lab5/List.cpp" flags="4" id="org.eclipse.cdt.internal.ui.refactoring.extractfunction.ExtractFunctionRefactoring" name="makCopyO" replaceDuplicates="false" selection="508,439" stamp="1539101198749" visibility="private"/>
+</session>

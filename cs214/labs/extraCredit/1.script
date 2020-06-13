@@ -1,0 +1,13 @@
+Script started on Wed 17 Apr 2019 02:47:25 PM EDT
+ajs244@gold22:~$ clojure
+Clojure 1.9.0
+user=> (fn [x] (+ x   x))^[[D ^[[C           )
+#object[user$eval145$fn__146 0x5911e990 "user$eval145$fn__146@5911e990"]
+user=> ^[[A^[[A        (fn  (fn [x] (+ x x) ) 21)
+42
+user=> ((fn [x y] (+ (* x x)(  (* y y))) 3 4)
+25
+user=> 
+ajs244@gold22:~$ exit
+
+Script done on Wed 17 Apr 2019 02:51:12 PM EDT

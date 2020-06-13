@@ -1,0 +1,15 @@
+15:17:20 **** Build of configuration Debug for project lab5 ****
+make all 
+Building file: ../ListTester.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"ListTester.d" -MT"ListTester.o" -o "ListTester.o" "../ListTester.cpp"
+../ListTester.cpp: In member function 'void ListTester::testAssignment()':
+../ListTester.cpp:235:18: error: expected ';' before numeric constant
+  list9.append(44)1 2 3 4;
+                  ^
+subdir.mk:24: recipe for target 'ListTester.o' failed
+make: *** [ListTester.o] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+
+15:17:21 Build Failed. 3 errors, 0 warnings. (took 317ms)
+

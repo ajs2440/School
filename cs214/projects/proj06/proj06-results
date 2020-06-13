@@ -1,0 +1,349 @@
+Script started on Fri 15 Mar 2019 04:42:02 PM EDT
+ajs244@gold29:~/cs214/projects/proj06$ cat arrays.adb
+-- arrays.adb is a driver for reading and printing arrays.
+--
+-- Input: a, b, c - coefficients of the quadratic equation.
+-- Precondition: valid size and double numbers must be input.
+-- Output: prints elements of anArray to console or reads and fills
+--          elements into anArray from console input.
+--
+-- Begun by: Prof. Adams, for CS 214 at Calvin College.
+-- Completed by: Advait Scaria
+-- Date: 03/14/2019
+--------------------------------------------------------------
+
+with Ada.Text_IO, Ada.Float_Text_IO, Ada.Integer_Text_IO;
+use  Ada.Text_IO, Ada.Float_Text_IO, Ada.Integer_Text_IO;
+
+procedure arrays is
+
+   type Vector is array (Positive range <>) of Float;
+   size : Integer;
+
+   -----------------------------------------------------------------
+   -- readArray() is a method that reads the inputted elements and 
+   --                fills anArray with those elements.
+   -- Receive: anArray, an array with double elements.
+   -- Postcondition: Reads valid element inputs from console and 
+   --                populates anArray with them.
+   -----------------------------------------------------------------
+   procedure readArray(anArray : out Vector) is
+   element : Float;
+   begin
+      for Index in anArray'Range          -- for loop defined for unconstrained Type Vector
+      loop
+         Put("Enter element: ");
+         Get(element);
+         anArray(Index) := element;
+      end loop;
+   end readArray;
+
+   -----------------------------------------------------------------
+   -- printArray() is a method that prints the inputted elements and 
+   --                fills anArray with those elements.
+   -- Receive: anArray, an array with double elements.
+   -- Postcondition: Prints the elements in anArray to console.
+   -----------------------------------------------------------------
+   procedure printArray(anArray : in Vector) is
+   begin
+      Put("Here are your array's elements: ");
+      for Index in anArray'Range          -- for loop defined for unconstrained Type Vector
+      loop
+         Put(anArray(Index), 1, 0, 0);
+         if Index = anArray'Last then
+            Put("");
+         else
+            Put(", ");
+         end if;
+      end loop;
+   end printArray;
+
+begin 
+   New_Line;                                          -- Prompt for input
+   Put("Enter the size of the array: ");
+   Get(size);
+   if size > 0 then
+      declare
+         anArray : Vector(1..size);
+      begin
+         New_Line;
+         readArray(anArray);
+         printArray(anArray);
+         New_Line;
+         New_Line;
+      end;
+   end if;
+
+end arrays;
+ajs244@gold29:~/cs214/projects/proj06$ cat arrays.adb[Kgnatmajke   ke arrays.adb
+gcc-5 -c arrays.adb
+gnatbind-5 -x arrays.ali
+gnatlink-5 arrays.ali
+ajs244@gold29:~/cs214/projects/proj06$ ./arrays
+
+Enter the size of the array: 2
+
+Enter element: 1
+Enter element: 2
+Here are your array's elements: 1.0, 2.0
+
+ajs244@gold29:~/cs214/projects/proj06$ ./arrays
+
+Enter the size of the array: 5
+
+Enter element: 5
+Enter element: 4
+Enter element: 3
+Enter element: 2
+Enter element: 1
+Here are your array's elements: 5.0, 4.0, 3.0, 2.0, 1.0
+
+ajs244@gold29:~/cs214/projects/proj06$ exit
+
+Script done on Fri 15 Mar 2019 04:42:31 PM EDT
+Script started on Fri 15 Mar 2019 05:10:23 PM EDT
+ajs244@gold29:~/cs214/projects/proj06/clojure$ cat A arrays.clj[1@s[1@r[1@c[1@/
+;; arrays.clj is a driver for reading and printing arrays.
+;;
+;; Usage: clojure -m average
+;;
+;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;; Completed by: Advait Scaria
+;; Date: 03/15/2019
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns arrays)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; readArray() is a method that reads the inputted elements and 
+;;                fills anArray with those elements.       
+;; Receive: anArray, an array od double elements.
+;; 									size, type int - specifies anArray's size.
+;; Postcondition: Reads valid element inputs from console and 
+;;                populates anArray with them.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn readArray [anArray size]
+			(loop [i 0]
+				(when (< i size)
+					(print "Enter element: ")
+					(let [ element (double (read)) ]
+						(aset anArray i element)
+					)
+					(recur (+ i 1))
+				)
+			)	
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; printArray() is a method that reads the inputted elements and 
+;;                fills anArray with those elements.       
+;; Receive: anArray, an array with double elements
+;; 									size, type int - specifies anArray's size.
+;; Postcondition: Prints the elements in anArray to console.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn printArray [anArray size]
+	(loop [i 0]
+		(when (< i size)
+			(print (aget anArray i)) (flush)
+			(recur (+ i 1))
+		)
+	)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; main function to test functions readArray() and printArray().
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn -main []
+  (print "Enter the size of the array: ")
+  	(let
+  		[size (read)
+  		 anArray (double-array size)]
+  	 (readArray anArray size)
+  		(print "Here are the elements of your array: ")
+  		(printArray anArray size)
+  	)
+)
+ajs244@gold29:~/cs214/projects/proj06/clojure$ exit
+
+Script done on Fri 15 Mar 2019 05:10:35 PM EDT
+Script started on Fri 15 Mar 2019 04:40:23 PM EDT
+ajs244@gold29:~/cs214/projects/proj06$ cat Arrays.java
+/* Arrays.java is a driver for array methods printArray() and readArray().
+ *
+ * Started by: Prof. Adams, for CS 214 at Calvin College
+ *
+ * Student Name: Advait Scaria
+ * Date: 03/08/2019
+ *
+ * Precondition: valid size and double numbers must be input.
+ * Output: prints elements of anArray to console or reads and fills
+ *          elements into anArray from console input.
+ ***************************************************************/
+
+import java.io.*;
+import java.util.*;
+
+public class Arrays
+{
+  public static void main(String[] args) {
+      // prompt for user input about array's size
+      System.out.print("\nEnter the size of the array: ");
+      Scanner input = new Scanner(System.in);
+          
+      int size = input.nextInt();
+      double[] anArray = new double[size];
+
+      System.out.println();
+      readArray(anArray, size);
+      printArray(anArray, size);
+      System.out.println();
+      System.out.println();
+  }
+
+  /* readArray() is a method that reads the inputted elements and 
+   *              fills anArray with those elements.
+   * Receive: anArray, an array with double elements
+              itsSize, type int - specifies anArray's size.
+   * Return: void.
+   * Precondition: Size must be > 0.
+   * Postcondition: Reads valid element inputs from console and 
+   *                populates anArray with them.
+   ********************************************************************/
+
+  public static void readArray(double[] anArray, int itsSize) {
+      for (int i = 0; i < itsSize; i++) {
+        System.out.print("Enter element " + (i + 1) + ": ");
+        Scanner arrayInput = new Scanner(System.in);
+        anArray[i] = arrayInput.nextDouble();
+      }
+  }
+
+  /* printArray() is a method that prints the elements within an array.
+   * Receive: anArray, an array with double elements
+              itsSize, type int - specifies anArray's size.
+   * Return: void.
+   * Precondition: Size must be >= 0.
+   * Postcondition: Prints elements of anArray to console.
+   ********************************************************************/
+
+  public static void printArray(double[] anArray, int itsSize) {
+      System.out.print("\nHere are the elements in your array: ");
+   	  for (int i = 0; i < itsSize; i++) {
+        if (i == itsSize - 1) {
+          System.out.print(anArray[i]);
+        } else {
+          System.out.print(anArray[i] + ", ");
+        }
+      }
+  }
+}
+ajs244@gold29:~/cs214/projects/proj06$ cat Arrays.java[4Pjava Arraysc -deprecation Arrays.java
+ajs244@gold29:~/cs214/projects/proj06$ javac -deprecation Arrays.java[15Pcat Arrays.java[4Pjava Arrays
+
+Enter the size of the array: 2
+
+Enter element 1: 1
+Enter element 2: 4
+
+Here are the elements in your array: 1.0, 4.0
+
+ajs244@gold29:~/cs214/projects/proj06$ java Arrays
+
+Enter the size of the array: 5
+
+Enter element 1: 5
+Enter element 2: 4
+Enter element 3: 3
+Enter element 4: 2
+Enter element 5: 1
+
+Here are the elements in your array: 5.0, 4.0, 3.0, 2.0, 1.0
+
+ajs244@gold29:~/cs214/projects/proj06$ exit
+
+Script done on Fri 15 Mar 2019 04:41:21 PM EDT
+Script started on Fri 15 Mar 2019 04:41:30 PM EDT
+ajs244@gold29:~/cs214/projects/proj06$ cat arrays.rb
+# arrays.rb is a driver for array methods printArray() and readArray().
+#
+# Precondition: valid size and double numbers must be input.
+# Output: prints elements of anArray to console or reads and fills
+#          elements into anArray from console input.
+#
+# Begun by: Prof. Adams, for CS 214 at Calvin College.
+# Completed by: Advait Scaria
+# Date: 03/08/2019
+#################################################################
+
+
+# readArray() is a method that reads the inputted elements and 
+#                fills anArray with those elements.
+# Receive: anArray, an array with double elements
+#          itsSize, type int - specifies anArray's size.
+# Return: .
+# Precondition: Size must be > 0.
+# Postcondition: Reads valid element inputs from console and 
+#                populates anArray with them.
+#################################################################
+
+def readArray(anArray)
+	for i in 1..anArray.size
+		print "Enter element #{ i }: "
+		anArray << gets.to_f
+	end
+#	print "\nEnter #{ anArray.size } elements: "
+#	anArray.each {| item | item = gets.to_f}
+end
+
+# printArray() is a method that prints the elements within an array.
+# Receive: anArray, an array with double elements
+#          itsSize, type int - specifies anArray's size.
+# Return: .
+# Precondition: Size must be >= 0.
+# Postcondition: Prints elements of anArray to console.
+#################################################################
+
+def printArray(anArray)
+	print "\nHere are the elements in your array: "
+	anArray.each {| item | print "#{ item }  "}
+end
+
+
+def main
+  print "\nEnter the size of the array: "
+  size = gets.to_i
+  anArray = Array.new(size)
+  
+  puts
+  readArray(anArray)
+  printArray(anArray)
+  puts 
+  puts
+end
+
+
+main
+ajs244@gold29:~/cs214/projects/proj06$ ruby arrays.rb
+
+Enter the size of the array: 2
+
+Enter element 1: 1
+Enter element 2: 2
+
+Here are the elements in your array:     1.0  2.0  
+
+ajs244@gold29:~/cs214/projects/proj06$ ruby arrays.rb
+
+Enter the size of the array: 5
+
+Enter element 1: 5
+Enter element 2: 4
+Enter element 3: 3
+Enter element 4: 2
+Enter element 5: 1
+
+Here are the elements in your array:           5.0  4.0  3.0  2.0  1.0  
+
+ajs244@gold29:~/cs214/projects/proj06$ exit
+
+Script done on Fri 15 Mar 2019 04:41:59 PM EDT

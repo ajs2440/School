@@ -1,0 +1,76 @@
+00:33:38 **** Incremental Build of configuration Debug for project test ****
+make all 
+Building file: ../main.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.o" -o "main.o" "../main.cpp"
+In file included from ../main.cpp:7:0:
+../List.h: In member function 'Item List<Item>::getLast() const [with Item = double]':
+../List.h:37:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../main.cpp
+ 
+Building target: test
+Invoking: GCC C++ Linker
+g++  -o "test"  ./main.o   
+Finished building target: test
+ 
+00:33:42 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for 'all'.
+15:17:19 **** Build of configuration Debug for project lab4 ****
+make all 
+make: Nothing to be done for 'all'.
+15:17:20 **** Build of configuration Debug for project lab5 ****
+make all 
+Building file: ../ListTester.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"ListTester.d" -MT"ListTester.o" -o "ListTester.o" "../ListTester.cpp"
+../ListTester.cpp: In member function 'void ListTester::testAssignment()':
+../ListTester.cpp:235:18: error: expected ';' before numeric constant
+  list9.append(44)1 2 3 4;
+                  ^
+subdir.mk:24: recipe for target 'ListTester.o' failed
+make: *** [ListTester.o] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+15:17:21 **** Build of configuration Debug for project lab6 ****
+make all 
+make: Nothing to be done for 'all'.
+15:17:21 **** Build of configuration Debug for project lab7 ****
+make all 
+make: Nothing to be done for 'all'.
+15:17:21 **** Auto Build of configuration Debug for project proj6 ****
+make all 
+make: Nothing to be done for 'all'.
+16:11:09 **** Auto Build of configuration Debug for project proj7 ****
+make all 
+make: Nothing to be done for 'all'.
+16:56:07 **** Build of configuration Debug for project lab8 ****
+make all 
+Building file: ../ArrayQueue.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"ArrayQueue.d" -MT"ArrayQueue.o" -o "ArrayQueue.o" "../ArrayQueue.cpp"
+../ArrayQueue.cpp:54:12: error: expected unqualified-id before numeric constant
+ ArrayQueue 1 = ArrayQueue 2
+            ^
+make: *** [ArrayQueue.o] Error 1
+subdir.mk:30: recipe for target 'ArrayQueue.o' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+16:56:50 **** Auto Build of configuration Debug for project lab3 ****
+make all 
+make: Nothing to be done for 'all'.
+19:06:57 **** Build of configuration Default for project lab10 ****
+make all 
+make: Nothing to be done for 'all'.
+19:06:58 **** Auto Build of configuration Default for project lab10 ****
+make all 
+make: Nothing to be done for 'all'.
+19:30:40 **** Incremental Build of configuration Default for project lab10 ****
+make all 
+make: Nothing to be done for 'all'.
+19:31:07 **** Incremental Build of configuration Default for project lab10 ****
+make all 
+make: Nothing to be done for 'all'.
+16:14:22 **** Auto Build of configuration Default for project lab10 ****
+make all 
+make: Nothing to be done for 'all'.

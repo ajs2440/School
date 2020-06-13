@@ -1,0 +1,99 @@
+V "GNAT Lib v5"
+M P W=b
+A -gnata
+P SS ZX
+
+RN
+RV NO_IO
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV SPARK_05
+
+U names%b		names.adb		6ce2342a NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W system.assertions%s	s-assert.adb		s-assert.ali
+W system.concat_5%s	s-conca5.adb		s-conca5.ali
+W system.concat_6%s	s-conca6.adb		s-conca6.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+D ada.ads		20070406091342 3ffc8e18 ada%s
+D a-except.ads		20140730140058 5250cb69 ada.exceptions%s
+D a-ioexce.ads		20140225151544 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20141120112812 119b8fb3 ada.streams%s
+D a-tags.ads		20140730140058 dc4d0634 ada.tags%s
+D a-textio.ads		20140717063745 386df5d4 ada.text_io%s
+D a-unccon.ads		20070406091342 f9eb8f06 ada.unchecked_conversion%s
+D interfac.ads		20141120112812 6033a23f interfaces%s
+D i-cstrea.ads		20140801100435 e53d8b8e interfaces.c_streams%s
+D names.adb		20190402212743 548fc1fe names%b
+D system.ads		20141031112219 1d274481 system%s
+D s-assert.ads		20140225151544 cd8d2c94 system.assertions%s
+D s-conca5.ads		20140225151544 875e432e system.concat_5%s
+D s-conca6.ads		20140225151544 d2c72db2 system.concat_6%s
+D s-crtl.ads		20141120112812 0ebbdb71 system.crtl%s
+D s-exctab.ads		20140225151139 54135002 system.exception_table%s
+D s-ficobl.ads		20140718105747 078245e4 system.file_control_block%s
+D s-parame.ads		20140801093848 7e2a0d7f system.parameters%s
+D s-secsta.ads		20140225151139 86a2856d system.secondary_stack%s
+D s-soflin.ads		20140801100131 aa763b52 system.soft_links%s
+D s-stache.ads		20140225151139 a37c21ec system.stack_checking%s
+D s-stalib.ads		20150220094550 fa0a3617 system.standard_library%s
+D s-stoele.ads		20140225151139 2dc34a04 system.storage_elements%s
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20140731130224 9d58a4c0 system.unsigned_types%s
+D s-wchcon.ads		20140718092328 1b7d22d2 system.wch_con%s
+X 1 ada.ads
+16K9*Ada 19e8 10|7r6 7r23
+X 6 a-textio.ads
+49K13*Text_IO 471e16 10|7w10 7r27
+166U14*New_Line 10|179s15 203s15 205s29
+242U14*Put 10|132s5 205s3
+249U14*Get_Line 10|159s5 162s5 165s5
+X 10 names.adb
+9U11*names 9b11 207l5 207t10
+11i3 NAME_SIZE{integer} 15r46
+13R8 Name 16e15 18r11 31r33 45r34 58r39 70r35 82r40 94r33 106r38 118r37 130r30
+. 142r30 155r35
+15a7 MyFirst{string} 33m13 47r20 60m13
+15a16 MyMiddle{string} 34m13 72r20 84m13 144r68
+15a26 MyLast{string} 35m13 96r20 108m13
+18r3 aName{13R8} 120r21 120r46 120r69 132r23 144r20 144r45 171m8 173r27 174r28
+. 175r26 176r30 179r7 184m12 184r12 185r27 188m13 188r13 189r28 192m11 192r11
+. 193r26 196r23 199m8 199r8 200r27 201r28 202r26 203r7
+31U13 Init 31b13 31<19 31>39 31>46 31>54 36l7 36t11 171s3
+31r19 TheName{13R8} 33m5 34m5 35m5
+31a39 First{string} 33r24
+31a46 Middle{string} 34r25
+31a54 Last{string} 35r23
+45V12 getFirst{string} 45b12 45>21 48l7 48t15 120s12 144s36 173s18 185s18
+. 200s18
+45r21 TheName{13R8} 47r12
+58U13 setFirst 58b13 58=22 58>45 61l7 61t15 160s5 184s3
+58r22 TheName{13R8} 60m5
+58a45 First{string} 60r24
+70V12 getMiddle{string} 70b12 70>22 73l7 73t16 120s36 174s18 189s18 201s18
+70r22 TheName{13R8} 72r12
+82U13 setMiddle 82b13 82=23 82>46 85l7 85t16 163s5 188s3
+82r23 TheName{13R8} 84m5
+82a46 Middle{string} 84r25
+94V12 getLast{string} 94b12 94>20 97l7 97t14 120s61 144s12 175s18 193s18
+. 202s18
+94r20 TheName{13R8} 96r12
+106U13 setLast 106b13 106=21 106>44 109l7 109t14 166s5 192s3
+106r21 TheName{13R8} 108m5
+106a44 Last{string} 108r23
+118V12 getFullName{string} 118b12 118>24 121l7 121t18 132s11 176s18
+118r24 TheName{13R8}
+130U13 Put 130b13 130>17 133l7 133t10 179s3 203s3
+130r17 TheName{13R8}
+142V12 lfmi{string} 142b12 142>17 145l7 145t11 196s18
+142r17 TheName{13R8} 144r60
+155U13 read 155b13 155=18 167l7 167t11 199s3
+155r18 TheName{13R8} 160m14 163m15 166m13
+156a3 First{string} 159m15 160r23
+156a10 Middle{string} 162m15 163r24
+156a18 Last{string} 165m15 166r22
+157i3 Finish{integer} 159m22 162m23 165m21
+

@@ -1,0 +1,43 @@
+Script started on Thu 18 Apr 2019 02:47:48 PM EDT
+ajs244@gold10:~/cs214/labs/extraCredit$ clojure
+Clojure 1.9.0
+user=> (reduce + [1 2 3])
+6
+user=> (reduce + '(1 2 3))
+6
+user=> (reduce max [1 2 3])
+3
+user=> (reduce conj [1 2 3] [4 5 6])
+[1 2 3 4 5 6]
+user=> (reduce + [1 2 3 4 5])
+15
+user=> (reduce + 1 [2 3 4 5])
+15
+user=> (reduce + 1 '(2 3 4 5))
+15
+user=> (reduce max 5 [4 3 2 1])
+5
+user=> (reduce bit-or [1 2 3 4])
+7
+user=> (reduce str ["a" "b" "c"])
+"abc"
+user=> (reduce + 1 2 [3 4 5])
+ArityException Wrong number of args (4) passed to: core/reduce  clojure.lang.AFn.throwArity (AFn.java:429)
+user=> (reduce + 1 '(2 3 4) 5)
+ArityException Wrong number of args (4) passed to: core/reduce  clojure.lang.AFn.throwArity (AFn.java:429)
+user=> (defn csv [seq]  
+      (reduce (fn [a b] (str a "," b)) seq)
+   )
+#'user/csv
+user=> (csv [11 22 33])
+"11,22,33"
+user=> (defn totalItems [seqOfSeqs]
+   (reduce + (map count seqOfSeqs))
+  )
+#'user/totalItems
+user=> (totalItems [["Ann"] ["Bob" "Chris"] ["Dan" "Eve" "Fred"]])
+6
+user=> 
+ajs244@gold10:~/cs214/labs/extraCredit$ exit
+
+Script done on Thu 18 Apr 2019 02:49:52 PM EDT

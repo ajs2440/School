@@ -1,0 +1,17 @@
+Script started on Thu 18 Apr 2019 02:20:09 PM EDT
+ajs244@gold10:~/cs214/labs/extraCredit$ clojure
+Clojure 1.9.0
+user=> (defn sumSquares [sequence]
+   (reduce + (map (fn [x] (* x x)) sequence))
+)
+#'user/sumSquares
+user=> (sumSquares '(1 2 3))
+14
+user=> (sumSquares '(1 2 3 4 5))  
+55
+user=> (sumSquares [-1 -2 -3 0 1])
+15
+user=> 
+ajs244@gold10:~/cs214/labs/extraCredit$ exit
+
+Script done on Thu 18 Apr 2019 02:21:03 PM EDT
