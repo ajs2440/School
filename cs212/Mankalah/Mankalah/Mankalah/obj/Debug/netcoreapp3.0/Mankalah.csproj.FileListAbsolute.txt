@@ -1,0 +1,11 @@
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\obj\Debug\netcoreapp3.0\Mankalah.csprojAssemblyReference.cache
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\obj\Debug\netcoreapp3.0\Mankalah.AssemblyInfoInputs.cache
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\obj\Debug\netcoreapp3.0\Mankalah.AssemblyInfo.cs
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\bin\Debug\netcoreapp3.0\Mankalah.exe
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\bin\Debug\netcoreapp3.0\Mankalah.deps.json
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\bin\Debug\netcoreapp3.0\Mankalah.runtimeconfig.json
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\bin\Debug\netcoreapp3.0\Mankalah.runtimeconfig.dev.json
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\bin\Debug\netcoreapp3.0\Mankalah.dll
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\bin\Debug\netcoreapp3.0\Mankalah.pdb
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\obj\Debug\netcoreapp3.0\Mankalah.dll
+C:\Users\advai\OneDrive\Desktop\CS212Projs\Mankalah\Mankalah\Mankalah\obj\Debug\netcoreapp3.0\Mankalah.pdb
