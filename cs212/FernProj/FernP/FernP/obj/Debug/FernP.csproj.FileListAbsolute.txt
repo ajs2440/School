@@ -1,0 +1,13 @@
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\bin\Debug\FernP.exe.config
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\bin\Debug\FernP.exe
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\bin\Debug\FernP.pdb
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\FernP.csprojAssemblyReference.cache
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\MainWindow.baml
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\MainWindow.g.cs
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\App.g.cs
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\FernP_MarkupCompile.cache
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\FernP.g.resources
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\FernP.Properties.Resources.resources
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\FernP.csproj.GenerateResource.cache
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\FernP.exe
+C:\Users\advai\OneDrive\Desktop\CS212Projs\FernProj\FernP\FernP\obj\Debug\FernP.pdb
